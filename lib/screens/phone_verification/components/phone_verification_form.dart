@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/components/form_error.dart';
@@ -69,21 +71,23 @@ class _PhoneVerificationForm extends State<PhoneVerificationForm> {
               ],
             ),
           ),
+          SizedBox(height: getProportionateScreenHeight(40)),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continue",
-            press: ()  {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
-                //Navigator.pushNamed(context, OTPScreen.routeName);
-                // ignore: avoid_print
-                print(phone);
-                // ignore: avoid_print
-                print(phoneEditController.text);
-                authController.verifyPhone(phoneEditController.text);
+                log('+1${phoneEditController.text}');
+                var checkPhone = await authController.checkPhone(phone!, context);
+                if(checkPhone){
+                  authController.verifyPhone(phone!, context, true);
+                  authController.phone = phone!;
+                }else{
+                  addError(error: 'Phone number already in use');
+                }
               }
             },
           )

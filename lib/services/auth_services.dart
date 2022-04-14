@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:ecommerce_app/models/auth_model.dart';
 import 'package:ecommerce_app/models/response.dart';
@@ -25,10 +26,11 @@ class AuthServices {
   }
 
   static Future<AuthModel> login(
-      {required String phone, required String password}) async {
+      {String? phone, String? password}) async {
     Uri uri = Uri.parse('$server/login');
 
-    final resp = await client.post(uri,
+    final resp = await client.post(
+        uri,
         headers: {'Accept': 'application/json'},
         body: {'phone': phone, 'password': password});
 
@@ -41,7 +43,7 @@ class AuthServices {
     Uri uri = Uri.parse('$server/login/renew');
 
     final resp = await client
-        .get(uri, headers: {'Accept': 'application/json', 'xx-token': token});
+        .get(uri, headers: {'Accept': 'application/json', 'xx-token': '$token'});
 
     return AuthModel.fromJson(jsonDecode(resp.body));
   }
@@ -53,8 +55,8 @@ class AuthServices {
     var request =
         http.MultipartRequest('PUT', Uri.parse('$server/update-image-profile'))
           ..headers['Accept'] = 'application/json'
-          ..headers['xx-token'] = token
-          ..fields['uidPerson'] = '$uidPerson'
+          ..headers['xx-token'] = '$token'
+          ..fields['uidPerson'] = uidPerson
           ..files.add(await http.MultipartFile.fromPath('image', image));
 
     final resp = await request.send();
@@ -64,8 +66,9 @@ class AuthServices {
   }
   // Flutter Secure Storage
 
-  Future<void> persistenToken(String? token) async {
+  Future<void> persistenToken(String? token, String? reToken) async {
     await secureStorage.write(key: 'xtoken', value: token);
+    await secureStorage.write(key: 'refreshToken', value: reToken);
   }
 
   Future<String?> uidPersonStorage() async {
@@ -79,8 +82,13 @@ class AuthServices {
     return false;
   }
 
-  Future<String> readToken() async {
-    return '${secureStorage.read(key: 'xtoken')}';
+  Future<String?> readToken() async {
+    log('${secureStorage.read(key: 'xtoken')}');
+    return secureStorage.read(key: 'xtoken');
+  }
+
+  Future<String> readReToken() async {
+    return '${secureStorage.read(key: 'refreshToken')}';
   }
 
   Future<void> deleteToken() async {

@@ -3,14 +3,16 @@ class AuthModel {
   String? msj;
   Users? users;
   String? token;
+  String? refreshToken;
 
-  AuthModel({this.resp, this.msj, this.users, this.token});
+  AuthModel({this.resp, this.msj, this.users, this.token, this.refreshToken});
 
   AuthModel.fromJson(Map<String, dynamic> json) {
     resp = json['resp'];
     msj = json['msj'];
     users = json['users'] != null ? Users.fromJson(json['users']) : null;
     token = json['token'];
+    refreshToken = json['refreshToken'];
   }
 
   Map<String, dynamic> toJson() {
@@ -21,6 +23,7 @@ class AuthModel {
       data['users'] = users!.toJson();
     }
     data['token'] = token;
+    data['refreshToken'] = refreshToken;
     return data;
   }
 }

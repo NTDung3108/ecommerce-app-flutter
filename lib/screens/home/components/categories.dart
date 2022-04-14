@@ -52,7 +52,9 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
         onTap: press,
         child: Container(
-          padding: EdgeInsets.only(top: getProportionateScreenWidth(12)),
+          padding: text!.length >10
+            ?EdgeInsets.only(top: getProportionateScreenWidth(5))
+            :EdgeInsets.only(top: getProportionateScreenWidth(12)),
           margin: EdgeInsets.only(left: getProportionateScreenWidth(10)),
           height: getProportionateScreenHeight(55),
           width: getProportionateScreenWidth(80),

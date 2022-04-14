@@ -31,8 +31,9 @@ class Brands {
   int? brandsId;
   String? brand;
   String? picture;
+  bool? isChecked = false;
 
-  Brands({this.brandsId, this.brand, this.picture});
+  Brands({this.brandsId, this.brand, this.picture, this.isChecked});
 
   Brands.fromJson(Map<String, dynamic> json) {
     brandsId = json['brands_id'];

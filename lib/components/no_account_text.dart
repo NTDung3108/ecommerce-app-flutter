@@ -1,7 +1,5 @@
 import 'package:ecommerce_app/constants.dart';
 import 'package:ecommerce_app/screens/phone_verification/phone_verification.dart';
-// ignore: library_prefixes
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,8 +20,7 @@ class NoAccountText extends StatelessWidget {
           style: TextStyle(fontSize: getProportionateScreenWidth(16)),
         ),
         GestureDetector(
-          onTap: () => _processLogin(),
-          //Navigator.pushNamed(context, PhoneVerification.routeName),
+          onTap: () => Navigator.pushNamed(context, PhoneVerification.routeName),
           child: Text(
             "Sign Up",
             style: TextStyle(
@@ -32,10 +29,5 @@ class NoAccountText extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  void _processLogin() async {
-    var user = FirebaseAuth.FirebaseAuth.instance.currentUser;
-    if (user == null) {}
   }
 }

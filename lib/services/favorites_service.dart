@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ecommerce_app/models/home/product_%20home.dart';
 import 'package:ecommerce_app/models/product/favorite_product.dart';
 import 'package:ecommerce_app/models/response.dart';
 import 'package:ecommerce_app/services/auth_services.dart';
@@ -10,8 +11,8 @@ class FavoritesService {
   static var client = http.Client();
   static FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
-  static Future<List<Favorites>?> getFavorites() async {
-    final token = AuthServices().readToken();
+  static Future<List<Products>?> getFavorites() async {
+    final token = await AuthServices().readToken();
 
     Uri uri = Uri.parse('$server/product-favorite-for-user');
 
@@ -20,13 +21,14 @@ class FavoritesService {
 
     if (respose.statusCode == 200) {
       var jsonString = respose.body;
-      return FavoriteProduct.fromJson(jsonDecode(jsonString)).favorites;
+      return FavoritesProduct.fromJson(jsonDecode(jsonString)).favorites;
     }
+    return null;
   }
 
   static Future<Response> addOrDeleteProductFavorite(
       {required String id}) async {
-    final token = AuthServices().readToken();
+    final token = await AuthServices().readToken();
 
     Uri uri = Uri.parse('$server/add-Favorite-Product');
 

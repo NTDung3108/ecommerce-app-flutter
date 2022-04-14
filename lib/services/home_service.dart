@@ -19,6 +19,7 @@ class HomeService {
       var jsonString = respose.body;
       return ProductHome.fromJson(jsonDecode(jsonString)).products;
     }
+    return null;
   }
 
   static Future<List<Category>?> getCategoriesHome() async {
@@ -30,6 +31,7 @@ class HomeService {
       var jsonString = respose.body;
       return Categories.fromJson(jsonDecode(jsonString)).categories;
     }
+    return null;
   }
 
   static Future<List<Discounts>?> getDiscountBanner() async {
@@ -41,6 +43,7 @@ class HomeService {
       var jsonString = respose.body;
       return DiscountsHome.fromJson(jsonDecode(jsonString)).discounts;
     }
+    return null;
   }
 
   static Future<List<Subcategories>?> listSubCategoryHome() async {
@@ -53,5 +56,6 @@ class HomeService {
       return SubCategoriesResponse.fromJson(jsonDecode(jsonString))
           .subcategories;
     }
+    return null;
   }
 }

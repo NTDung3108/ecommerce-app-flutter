@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:ecommerce_app/components/custom_surfix_icon.dart';
 import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/components/form_error.dart';
 import 'package:ecommerce_app/constants.dart';
-import 'package:ecommerce_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:ecommerce_app/controllers/auth_controller.dart';
 import 'package:ecommerce_app/size_config.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +21,8 @@ class _SignUpForm extends State<SignUpForm> {
   String? password;
   String? conform_password;
   final List<String?> errors = [];
+
+  final AuthController authController = AuthController.instance;
 
   void addError({String? error}) {
     if (!errors.contains(error)) {
@@ -52,7 +57,16 @@ class _SignUpForm extends State<SignUpForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                String? userId = FirebaseAuth.instance.currentUser?.uid;
+                String? phone = FirebaseAuth.instance.currentUser?.phoneNumber;
+                if(authController.forgotPass){
+                  authController.forgotPassword(password: '$password', phone: phone!.replaceAll('+1', ''), context: context);
+                  log('$phone+$password');
+                  authController.forgotPass = false;
+                }else{
+                  authController.registerUser(phone!.replaceAll('+1', ''), '$password', '$userId', context);
+                  log('$userId+$phone+$password');
+                }
               }
             },
           ),
@@ -110,7 +124,7 @@ class _SignUpForm extends State<SignUpForm> {
         if (value!.isEmpty) {
           addError(error: passNullError);
           return "";
-        } else if (value.length < 8) {
+        } else if (value.length < 6) {
           addError(error: shortPassError);
           return "";
         }

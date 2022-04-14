@@ -17,5 +17,7 @@ class CategoriesService {
       var jsonString = respose.body;
       return Categories.fromJson(jsonDecode(jsonString)).categories;
     }
+    return null;
   }
+
 }

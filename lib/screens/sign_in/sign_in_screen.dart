@@ -9,6 +9,7 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign In'),
+        leading: const SizedBox(),
       ),
       body: SingInBody(),
     );

@@ -1,12 +1,16 @@
 import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/controllers/product_controller.dart';
+import 'package:ecommerce_app/screens/oder/oder_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class CheckoutCard extends StatelessWidget {
-  const CheckoutCard({Key? key}) : super(key: key);
+  CheckoutCard({Key? key}) : super(key: key);
+  final ProductController productController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -24,57 +28,61 @@ class CheckoutCard extends StatelessWidget {
                 blurRadius: 20,
                 color: const Color(0xFFDADADA).withOpacity(0.15))
           ]),
-      child: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  height: getProportionateScreenWidth(40),
-                  width: getProportionateScreenWidth(40),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFF5F6F9),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: SvgPicture.asset('assets/icons/receipt.svg'),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10),
+                height: getProportionateScreenWidth(40),
+                width: getProportionateScreenWidth(40),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF5F6F9),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                const Spacer(),
-                const Text('Add voucher code'),
-                const SizedBox(
-                  width: 10,
+                child: SvgPicture.asset('assets/icons/receipt.svg'),
+              ),
+              const Spacer(),
+              const Text('Add voucher code'),
+              const SizedBox(
+                width: 10,
+              ),
+              const Icon(
+                Icons.arrow_forward_ios,
+                size: 12,
+                color: textColor,
+              )
+            ],
+          ),
+          SizedBox(height: getProportionateScreenHeight(20)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              const Text(
+                'Total: ',
+                style: TextStyle(fontSize: 20),
+              ),
+              Obx(
+                () => Text(
+                  '${productController.totalPrice} VND',
+                  style: const TextStyle(fontSize: 20),
                 ),
-                const Icon(
-                  Icons.arrow_forward_ios,
-                  size: 12,
-                  color: textColor,
-                )
-              ],
+              ),
+            ],
+          ),
+          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(
+            width: getProportionateScreenWidth(190),
+            child: DefaultButton(
+              text: 'Ckeck Out',
+              press: () => Navigator.pushNamed(context, OderScreen.routeName)
             ),
-            SizedBox(height: getProportionateScreenHeight(20)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text.rich(TextSpan(text: 'Total:\n', children: [
-                  TextSpan(
-                    text: '\$337.15',
-                    style: TextStyle(fontSize: 16, color: Colors.black),
-                  )
-                ])),
-                SizedBox(
-                  width: getProportionateScreenWidth(190),
-                  child: DefaultButton(
-                    text: 'Ckeck Out',
-                    press: () {},
-                  ),
-                )
-              ],
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
+

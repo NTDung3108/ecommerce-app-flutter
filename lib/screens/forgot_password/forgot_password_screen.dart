@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/screens/forgot_password/components/forgot_password_body.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,7 @@ class ForgotPasswordScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Forgot Password"),
       ),
+      body: ForgotPasswordBody(),
     );
   }
 }

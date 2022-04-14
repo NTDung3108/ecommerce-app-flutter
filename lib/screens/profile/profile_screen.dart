@@ -1,12 +1,15 @@
 import 'package:ecommerce_app/components/custom_bottom_nav_bar.dart';
 import 'package:ecommerce_app/enums.dart';
 import 'package:ecommerce_app/screens/profile/compnents/profile_body.dart';
-import 'package:ecommerce_app/screens/splash/components/body.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controllers/user_controller.dart';
 
 class ProfileScreen extends StatelessWidget {
   static String routeName = '/profile';
+
+  final UserController userController = Get.put(UserController());
 
   @override
   Widget build(BuildContext context) {

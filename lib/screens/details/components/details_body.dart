@@ -1,20 +1,24 @@
 import 'package:ecommerce_app/components/default_button.dart';
+import 'package:ecommerce_app/controllers/product_controller.dart';
 import 'package:ecommerce_app/models/home/product_%20home.dart';
+import 'package:ecommerce_app/models/product/product_card.dart';
 import 'package:ecommerce_app/screens/details/components/product_desciption.dart';
 import 'package:ecommerce_app/screens/details/components/product_images.dart';
 import 'package:ecommerce_app/screens/details/components/top_rounded_container.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
-import 'color_dots.dart';
 
 class DetailsBody extends StatelessWidget {
-  const DetailsBody({Key? key, required this.products}) : super(key: key);
+  DetailsBody({Key? key, required this.products}) : super(key: key);
 
   final Products products;
+
+  final ProductController productController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +31,19 @@ class DetailsBody extends StatelessWidget {
               children: [
                 ProductDescription(
                   products: products,
-                  pressOnSeeMore: () {},
                 ),
                 TopRoundedContainer(
                     color: const Color(0xFFF6F7F9),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              'SL: ${products.quantily}',
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 24),
-                            )
-                          ],
+                        Container(
+                          padding: const EdgeInsets.only(right: 20),
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                            'SL: ${products.quantily}',
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 24),
+                          ),
                         ),
                         TopRoundedContainer(
                           color: Colors.white,
@@ -63,10 +65,20 @@ class DetailsBody extends StatelessWidget {
                                         fontWeight: FontWeight.w600,
                                         color: primaryColor),
                                   ),
-                                  SizedBox(height: getProportionateScreenHeight(15),),
+                                  SizedBox(
+                                    height: getProportionateScreenHeight(15),
+                                  ),
                                   DefaultButton(
                                     text: 'Add To Cart',
-                                    press: () {},
+                                    press: () {
+                                      var productCard = ProductCart(uidProduct: '${products.idProduct}',
+                                          image: products.picture![0],
+                                          name: '${products.nameProduct}',
+                                          quantity: products.quantily!,
+                                          price: products.price!,
+                                          amount: 1);
+                                      productController.addProductToCart(productCard, context);
+                                    },
                                   )
                                 ],
                               )),

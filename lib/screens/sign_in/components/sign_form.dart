@@ -1,12 +1,18 @@
+import 'dart:developer';
+
 import 'package:ecommerce_app/components/custom_surfix_icon.dart';
 import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/components/form_error.dart';
 import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/controllers/auth_controller.dart';
 import 'package:ecommerce_app/helper/keyboard.dart';
 import 'package:ecommerce_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../home/home_screen.dart';
 
 class SignForm extends StatefulWidget {
   @override
@@ -20,18 +26,22 @@ class _SignFormState extends State<SignForm> {
   bool? remember = false;
   final List<String?> errors = [];
 
+  final AuthController authController = Get.find();
+
   void addError({String? error}) {
-    if (!errors.contains(error))
+    if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
       });
+    }
   }
 
   void removeError({String? error}) {
-    if (errors.contains(error))
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
+    }
   }
 
   @override
@@ -58,8 +68,9 @@ class _SignFormState extends State<SignForm> {
               const Text("Remember me"),
               const Spacer(),
               GestureDetector(
-                onTap: () => Navigator.pushNamed(
-                    context, ForgotPasswordScreen.routeName),
+                onTap: () {
+                  Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+                },
                 child: const Text(
                   "Forgot Password",
                   style: TextStyle(decoration: TextDecoration.underline),
@@ -71,11 +82,21 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
+
+                log('$password');
+                log('$phone');
+
+                var auth = await authController.login(phone, password, context);
+                if (auth) {
+                  Navigator.pushNamed(context, HomeScreen.routeName);
+                } else {
+                  addError(error: 'Wrong Credentials');
+                }
               }
             },
           ),
@@ -100,7 +121,7 @@ class _SignFormState extends State<SignForm> {
         if (value!.isEmpty) {
           addError(error: passNullError);
           return "";
-        } else if (value.length < 8) {
+        } else if (value.length < 6) {
           addError(error: shortPassError);
           return "";
         }

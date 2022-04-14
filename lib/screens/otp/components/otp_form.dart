@@ -172,7 +172,7 @@ class _OTPForm extends State<OTPForm> {
                   pin3.text +
                   pin4.text +
                   pin5.text;
-              authController.otp(smsCode);
+              authController.otp(smsCode, context);
               //Navigator.pushNamed(context, SignUpScreen.routeName);
             },
           )

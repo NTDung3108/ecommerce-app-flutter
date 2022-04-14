@@ -1,11 +1,15 @@
-import 'package:ecommerce_app/screens/home/components/search_field.dart';
+import 'dart:developer';
+
+import 'package:ecommerce_app/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class ProductsHeader extends StatelessWidget{
+  final ProductController productController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,7 +39,34 @@ class ProductsHeader extends StatelessWidget{
             ),
           ),
           SizedBox(width: getProportionateScreenWidth(20),),
-          SearchField(),
+          Container(
+            width: SizeConfig.screenWidth * 0.6,
+            decoration: BoxDecoration(
+              color: secondaryColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: TextField(
+              onChanged: (value) {
+                log(value);
+                if(productController.searchFill.value) {
+                  productController.searching(value);
+                } else {
+                  productController.searchingProduct(value, productController.products);
+                }
+
+              },
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                    horizontal: getProportionateScreenWidth(20),
+                    vertical: getProportionateScreenWidth(9)),
+                border: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                hintText: "Search product",
+                prefixIcon: const Icon(Icons.search),
+              ),
+            ),
+          ),
         ],
       ),
     );

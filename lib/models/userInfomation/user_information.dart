@@ -1,29 +1,29 @@
-import 'package:ecommerce_app/models/person.dart';
+import '../Information.dart';
 
 class UserInformation {
   bool? resp;
   String? msj;
-  Person? person;
+  Information? information;
 
-  UserInformation({this.resp, this.msj, this.person});
+  UserInformation({this.resp, this.msj, this.information});
 
   UserInformation.fromJson(Map<String, dynamic> json) {
     resp = json['resp'];
     msj = json['msj'];
-    if (json['information'] != null) {
-      person = Person.fromJson(json['information']);
-    } else {
-      person = null;
-    }
+    information = json['information'] != null
+        ? Information.fromJson(json['information'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['resp'] = resp;
     data['msj'] = msj;
-    if (person != null) {
-      data['information'] = person!.toJson();
+    if (information != null) {
+      data['information'] = information!.toJson();
     }
     return data;
   }
 }
+
+

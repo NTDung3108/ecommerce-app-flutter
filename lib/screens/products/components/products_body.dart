@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:ecommerce_app/controllers/controller.dart';
 import 'package:ecommerce_app/controllers/product_controller.dart';
 import 'package:ecommerce_app/screens/products/components/products_header.dart';
 import 'package:flutter/cupertino.dart';

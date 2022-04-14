@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/controllers/user_controller.dart';
 import 'package:ecommerce_app/screens/splash/splash_screen.dart';
 import 'package:ecommerce_app/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value) {
     Get.put(AuthController());
+    Get.put(UserController());
   });
   runApp(const MyApp());
 }

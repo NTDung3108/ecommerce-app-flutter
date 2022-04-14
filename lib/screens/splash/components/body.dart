@@ -2,6 +2,7 @@ import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/constants.dart';
 import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:ecommerce_app/screens/sign_in/sign_in_screen.dart';
+import 'package:ecommerce_app/screens/sign_up/sign_up_screen.dart';
 import 'package:ecommerce_app/screens/splash/components/splash_content.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -70,7 +71,7 @@ class _Body extends State<Body> {
                   DefaultButton(
                     text: 'Continue',
                     press: () {
-                      Navigator.pushNamed(context, HomeScreen.routeName);
+                      Navigator.pushNamed(context, SignInScreen.routeName);
                     },
                   ),
                   const Spacer(

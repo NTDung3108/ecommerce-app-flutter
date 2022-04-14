@@ -16,5 +16,19 @@ class SubcategoriesService {
       return SubCategoriesResponse.fromJson(jsonDecode(jsonString))
           .subcategories;
     }
+    return null;
+  }
+
+  static Future<List<Subcategories>?> getAllCategories() async {
+    Uri uri = Uri.parse('$server/get-all-subcategories');
+
+    var response = await client.get(uri);
+
+    if(response.statusCode == 200) {
+      var jsonString = response.body;
+      return SubCategoriesResponse.fromJson(jsonDecode(jsonString))
+          .subcategories;
+    }
+    return null;
   }
 }

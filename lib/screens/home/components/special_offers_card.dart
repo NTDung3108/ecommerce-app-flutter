@@ -1,10 +1,11 @@
 import 'package:ecommerce_app/controllers/home_controller.dart';
 import 'package:ecommerce_app/screens/home/components/section_title.dart';
+import 'package:ecommerce_app/screens/more_special/more_special_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:get/get.dart';
+
+import '../../products/products_screen.dart';
 
 class SpecialOffers extends StatelessWidget {
   SpecialOffers({Key? key}) : super(key: key);
@@ -19,13 +20,15 @@ class SpecialOffers extends StatelessWidget {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
             title: 'Special for you',
-            press: () {},
+            press: () {
+              Navigator.pushNamed(context, MoreSpecialScreen.routeName);
+            },
           ),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
         SizedBox(
           height: getProportionateScreenHeight(115),
-          child: Obx((){
+          child: Obx(() {
             if (homeController.isLoading.value) {
               return const Center(
                 child: CircularProgressIndicator(),
@@ -37,8 +40,15 @@ class SpecialOffers extends StatelessWidget {
               itemBuilder: (context, index) => SpecialOfferCard(
                   category: homeController.subcategoriesHome[index].name,
                   image: homeController.subcategoriesHome[index].picture,
-                  press: (){}
-              ),
+                  press: () {
+                    Navigator.pushNamed(
+                        context,
+                        ProductsScreen.routeName,
+                        arguments: ProductsArguments(
+                            subCategoryID: homeController.subcategoriesHome[index].id
+                        )
+                    );
+                  }),
             );
           }),
         )
@@ -71,9 +81,12 @@ class SpecialOfferCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.network(
-                  'http://10.50.10.90:3000/$image',
-                  fit: BoxFit.cover,
+                AspectRatio(
+                  aspectRatio: 2.3,
+                  child: Image.network(
+                    'http://10.50.10.90:3000/$image',
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 Container(
                   decoration: BoxDecoration(

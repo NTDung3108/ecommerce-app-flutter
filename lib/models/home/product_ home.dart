@@ -42,21 +42,25 @@ class Products {
   int? brandsId;
   int? subcategoryId;
   String? brand;
+  int? addDay;
+  int? updateday;
 
   Products(
       {this.idProduct,
-      this.nameProduct,
-      this.description,
-      this.price,
-      this.status,
-      this.discount,
-      this.picture,
-      this.quantily,
-      this.sold,
-      this.colors,
-      this.brandsId,
-      this.subcategoryId,
-      this.brand});
+        this.nameProduct,
+        this.description,
+        this.price,
+        this.status,
+        this.discount,
+        this.picture,
+        this.quantily,
+        this.sold,
+        this.colors,
+        this.brandsId,
+        this.subcategoryId,
+        this.brand,
+        this.addDay,
+        this.updateday});
 
   Products.fromJson(Map<String, dynamic> json) {
     idProduct = json['idProduct'];
@@ -72,23 +76,27 @@ class Products {
     brandsId = json['brands_id'];
     subcategoryId = json['subcategory_id'];
     brand = json['brand'];
+    addDay = json['addDay'];
+    updateday = json['updateday'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['idProduct'] = idProduct;
-    data['nameProduct'] = nameProduct;
-    data['description'] = description;
-    data['price'] = price;
-    data['status'] = status;
-    data['discount'] = discount;
-    data['picture'] = picture;
-    data['quantily'] = quantily;
-    data['sold'] = sold;
-    data['colors'] = colors;
-    data['brands_id'] = brandsId;
-    data['subcategory_id'] = subcategoryId;
-    data['brand'] = brand;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['idProduct'] = this.idProduct;
+    data['nameProduct'] = this.nameProduct;
+    data['description'] = this.description;
+    data['price'] = this.price;
+    data['status'] = this.status;
+    data['discount'] = this.discount;
+    data['picture'] = this.picture;
+    data['quantily'] = this.quantily;
+    data['sold'] = this.sold;
+    data['colors'] = this.colors;
+    data['brands_id'] = this.brandsId;
+    data['subcategory_id'] = this.subcategoryId;
+    data['brand'] = this.brand;
+    data['addDay'] = this.addDay;
+    data['updateday'] = this.updateday;
     return data;
   }
 }

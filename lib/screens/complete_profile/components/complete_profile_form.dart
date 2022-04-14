@@ -1,10 +1,15 @@
+import 'dart:developer';
+
 import 'package:ecommerce_app/components/custom_surfix_icon.dart';
 import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/components/form_error.dart';
 import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/controllers/user_controller.dart';
 import 'package:ecommerce_app/size_config.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CompeleteProfileForm extends StatefulWidget {
   const CompeleteProfileForm({Key? key}) : super(key: key);
@@ -20,6 +25,8 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
   String? lastName;
   String? phoneNumber;
   String? address;
+
+  final UserController userController = Get.find();
 
   void addError({String? error}) {
     if (!errors.contains(error)) {
@@ -54,6 +61,18 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
             text: "continue",
             press: () {
               if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
+                log('$firstName');
+                log('$lastName');
+                log('$address');
+                userController.registerUserInfo(
+                    firstName: firstName,
+                    lastName: lastName,
+                    address: address,
+                    phone: FirebaseAuth.instance.currentUser?.phoneNumber!.replaceAll('+1', ''),
+                    reference: 'abc',
+                    uid: FirebaseAuth.instance.currentUser?.uid,
+                    context: context);
                 //Navigator.pushNamed(context, OtpScreen.routeName);
               }
             },

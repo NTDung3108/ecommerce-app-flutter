@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../models/price_range_model.dart';
+
 class ProductsScreen extends StatelessWidget{
   static String routeName = "/productsscreen";
   final ProductController productController = Get.find();
@@ -15,6 +17,14 @@ class ProductsScreen extends StatelessWidget{
 
     productController.fetchProducts(agrs.subCategoryID);
     productController.fetchBrands(agrs.subCategoryID);
+    priceRange = [
+      PriceRangeModel(range: 'Dưới 1tr', isChecked: false),
+      PriceRangeModel(range: 'Từ 1tr-5tr', isChecked: false),
+      PriceRangeModel(range: 'Từ 5tr-10tr', isChecked: false),
+      PriceRangeModel(range: 'Từ 10tr-15tr', isChecked: false),
+      PriceRangeModel(range: 'Từ 15tr-20tr', isChecked: false),
+      PriceRangeModel(range: 'Trên 20tr', isChecked: false),
+    ];
     return Scaffold(
       body: ProductsBody(),
     );

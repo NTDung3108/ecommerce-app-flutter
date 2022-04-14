@@ -3,7 +3,7 @@ import 'package:ecommerce_app/enums.dart';
 import 'package:ecommerce_app/screens/favorite/favorite_screen.dart';
 import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:ecommerce_app/screens/profile/profile_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:ecommerce_app/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,7 +15,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final Color inActiveIconColor = Color(0xFFB6B6B6);
+    const Color inActiveIconColor = Color(0xFFB6B6B6);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 14),
       decoration: BoxDecoration(
@@ -51,8 +51,26 @@ class CustomBottomNavBar extends StatelessWidget {
                     ? primaryColor
                     : inActiveIconColor,
               ),
-              onPressed: () =>
-                  Navigator.pushNamed(context, FavoriteScreen.routeName),
+              onPressed: () async {
+                var value = await AuthServices().hasToken();
+                if(value){
+                  Navigator.pushNamed(context, FavoriteScreen.routeName);
+                }else{
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        content: const Text('You need to login to use this function'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Cancel'),
+                          ),
+                        ],
+                      ),
+                  );
+                }
+              }
+
             ),
             IconButton(
               icon: SvgPicture.asset(

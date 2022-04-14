@@ -1,19 +1,18 @@
-import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/controllers/favorite_controller.dart';
 import 'package:ecommerce_app/models/home/product_%20home.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class ProductDescription extends StatefulWidget {
   const ProductDescription({
     Key? key,
     required this.products,
-    this.pressOnSeeMore,
   }) : super(key: key);
 
   final Products products;
-  final GestureTapCallback? pressOnSeeMore;
 
   @override
   State<ProductDescription> createState() => _ProductDescriptionState();
@@ -24,6 +23,8 @@ class _ProductDescriptionState extends State<ProductDescription> {
   String? seconhalf;
 
   bool flag = true;
+
+  final FavoritesController favoritesController = Get.find();
 
   @override
   void initState() {
@@ -38,6 +39,8 @@ class _ProductDescriptionState extends State<ProductDescription> {
       firstHalf = widget.products.description;
       seconhalf = '';
     }
+
+    favoritesController.checkFavorite(widget.products.idProduct);
   }
 
   @override
@@ -53,28 +56,55 @@ class _ProductDescriptionState extends State<ProductDescription> {
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
-        SizedBox(
-          height: getProportionateScreenHeight(20),
-        ),
+        // SizedBox(
+        //   height: getProportionateScreenHeight(20),
+        // ),
         Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: getProportionateScreenWidth(20)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Text(
-                  'Hãng sản xuất: ',
-                  style: TextStyle(color: Colors.black),
-                ),
-                Text(
-                  '${widget.products.brand}',
-                  style: const TextStyle(color: Colors.black),
-                ),
-              ],
-            )),
-        SizedBox(
-          height: getProportionateScreenHeight(20),
+          padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
+          child: Row(
+            children: [
+              const Text(
+                'Hãng sản xuất: ',
+                style: TextStyle(color: Colors.black),
+              ),
+              Text(
+                '${widget.products.brand}',
+                style: const TextStyle(color: Colors.black),
+              ),
+              const Spacer(),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: GestureDetector(
+                    onTap: () {
+                      favoritesController.addOrDeleteFavorites(widget.products);
+                    },
+                    child: Obx(() => Container(
+                      padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+                      width: getProportionateScreenWidth(64),
+                      decoration: BoxDecoration(
+                        color: favoritesController.favorite.value
+                            ? const Color(0xFFFFE6E6)
+                            : const Color(0xFFF5F6F9),
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                        ),
+                      ),
+                      child: SvgPicture.asset(
+                        "assets/icons/Heart Icon_2.svg",
+                        color: favoritesController.favorite.value
+                            ? const Color(0xFFFF4848)
+                            : const Color(0xFFDBDEE4),
+                        height: getProportionateScreenWidth(16),
+                      ),
+                    )),
+                  )),
+            ],
+          ),
         ),
+        // SizedBox(
+        //   height: getProportionateScreenHeight(20),
+        // ),
         Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: getProportionateScreenWidth(20)),
@@ -87,23 +117,21 @@ class _ProductDescriptionState extends State<ProductDescription> {
                 ),
                 SizedBox(
                   height: getProportionateScreenHeight(22),
-                  width:  getProportionateScreenWidth(100),
+                  width: getProportionateScreenWidth(100),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: widget.products.colors!.length,
-                    itemBuilder:(context, index){
-                      if(index == widget.products.colors!.length - 1){
-                        return(Text(
+                    itemBuilder: (context, index) {
+                      if (index == widget.products.colors!.length - 1) {
+                        return (Text(
                           widget.products.colors![index],
                           style: const TextStyle(color: Colors.black),
-                        )
-                        );
-                      }else{
-                        return(Text(
-                            '${widget.products.colors![index]}, ',
+                        ));
+                      } else {
+                        return (Text(
+                          '${widget.products.colors![index]}, ',
                           style: const TextStyle(color: Colors.black),
-                        )
-                        );
+                        ));
                       }
                     },
                   ),
@@ -114,15 +142,14 @@ class _ProductDescriptionState extends State<ProductDescription> {
           height: getProportionateScreenHeight(20),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: getProportionateScreenWidth(20)
-          ),
+          padding:
+              EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: const Text('Desciption:'),
         ),
         Padding(
           padding: EdgeInsets.only(
             left: getProportionateScreenWidth(20),
-            right: getProportionateScreenWidth(64),
+            right: getProportionateScreenWidth(20),
           ),
           child: seconhalf!.isEmpty
               ? Text('$firstHalf')
@@ -144,6 +171,9 @@ class _ProductDescriptionState extends State<ProductDescription> {
                     )
                   ],
                 ),
+        ),
+        SizedBox(
+          height: getProportionateScreenHeight(20),
         ),
       ],
     );

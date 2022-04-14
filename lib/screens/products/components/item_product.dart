@@ -3,11 +3,27 @@ import 'package:ecommerce_app/controllers/product_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../../size_config.dart';
 
-class ItemProduct extends StatelessWidget{
+class ItemProduct extends StatefulWidget{
+  _ItemProduct createState() => _ItemProduct();
+}
+
+class _ItemProduct extends State<ItemProduct>{
   final ProductController productController = Get.find();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    productController.searchProduct.value = [];
+  }
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -21,7 +37,7 @@ class ItemProduct extends StatelessWidget{
           );
         }
         return GridView.builder(
-          itemCount: productController.products.length,
+          itemCount: productController.searchProduct.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 8,
@@ -29,7 +45,7 @@ class ItemProduct extends StatelessWidget{
               mainAxisExtent: 250
           ),
           itemBuilder: (context, index){
-            return ProductCard(products: productController.products[index]);
+            return ProductCard(products: productController.searchProduct[index]);
           },
         );
       }),

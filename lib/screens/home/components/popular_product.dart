@@ -24,7 +24,7 @@ class PopularProducts extends StatelessWidget {
           height: getProportionateScreenWidth(20),
         ),
         SizedBox(
-          height: getProportionateScreenHeight(250),
+          height: getProportionateScreenHeight(300),
           child: Obx(() {
             if (homeController.isLoading.value) {
               return const Center(
