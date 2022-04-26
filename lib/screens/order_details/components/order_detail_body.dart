@@ -69,7 +69,7 @@ class _OrderDetailBody extends State<OrderDetailBody> {
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(color: Colors.black)),
                         child: Image.network(
-                            'http://10.50.10.90:3000/${productController.orderDetails[index].picture![0]}'),
+                            'http://192.168.20.106:3000/${productController.orderDetails[index].picture![0]}'),
                       ),
                       Expanded(
                         child: Padding(

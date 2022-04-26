@@ -25,7 +25,7 @@ class ProfilePic extends StatelessWidget {
             if (userController.information.value.image != null) {
               return CircleAvatar(
                 backgroundImage: NetworkImage(
-                    'http://10.50.10.90:3000/${userController.information.value.image}'),
+                    'http://192.168.20.106:3000/${userController.information.value.image}'),
               );
             }
             return const CircleAvatar(

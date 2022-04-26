@@ -24,7 +24,7 @@ class ListCategory extends StatelessWidget {
                 height: getProportionateScreenWidth(50),
                 width: getProportionateScreenWidth(50),
                 child: Image.network(
-                  'http://10.50.10.90:3000/${subCategoriesController.search[index].icon}',
+                  'http://192.168.20.106:3000/${subCategoriesController.search[index].icon}',
                 ),
               ),
               SizedBox(

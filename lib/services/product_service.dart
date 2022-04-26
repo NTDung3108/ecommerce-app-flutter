@@ -10,7 +10,7 @@ import 'package:ecommerce_app/services/auth_services.dart';
 import 'package:http/http.dart' as http;
 
 class ProductService {
-  static String server = 'http://10.50.10.90:3000/api';
+  static String server = 'http://192.168.20.106:3000/api';
   static var client = http.Client();
 
   static Future<List<Products>?> getProductsForCategories(

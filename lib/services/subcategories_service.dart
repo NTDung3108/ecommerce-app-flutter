@@ -3,7 +3,7 @@ import 'package:ecommerce_app/models/subcategory/saubcategories.dart';
 import 'package:http/http.dart' as http;
 
 class SubcategoriesService {
-  static String server = 'http://10.50.10.90:3000/api';
+  static String server = 'http://192.168.20.106:3000/api';
   static var client = http.Client();
 
   static Future<List<Subcategories>?> getCategories(int id) async {

@@ -14,7 +14,7 @@ class UserController extends GetxController {
 
   File? image;
   RxString img = ''.obs;
-  final picker =ImagePicker();
+  final picker = ImagePicker();
 
 
   @override

@@ -8,7 +8,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class AuthServices {
-  static String server = 'http://10.50.10.90:3000/api';
+  static String server = 'http://192.168.20.106:3000/api';
   static var client = http.Client();
   FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
