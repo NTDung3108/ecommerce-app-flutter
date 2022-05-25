@@ -5,7 +5,7 @@ import 'package:ecommerce_app/models/home/categories_home.dart';
 import 'package:http/http.dart' as http;
 
 class CategoriesService {
-  static String server = 'http://192.168.20.106:3000/api';
+  static String server = 'http://192.168.20.104:3000/api';
   static var client = http.Client();
 
   static Future<List<Category>?> getCategories() async {

@@ -28,7 +28,7 @@ class _ProductImagesState extends State<ProductImages> {
             child: Hero(
               tag: widget.products.idProduct.toString(),
               child: Image.network(
-                  'http://192.168.20.106:3000/${widget.products.picture![selectedImage]}'),
+                  'http://192.168.20.104:3000/${widget.products.picture![selectedImage]}'),
             ),
           ),
         ),
@@ -64,7 +64,7 @@ class _ProductImagesState extends State<ProductImages> {
               color: primaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
         child: Image.network(
-            'http://192.168.20.106:3000/${widget.products.picture![index]}'),
+            'http://192.168.20.104:3000/${widget.products.picture![index]}'),
       ),
     );
   }

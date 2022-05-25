@@ -41,7 +41,7 @@ class _BrandsDialog extends State<BrandsDialog> {
                   children: [
                     Center(
                       child: Image.network(
-                        'http://192.168.20.106:3000/${productController.brands[index].picture}',
+                        'http://192.168.20.104:3000/${productController.brands[index].picture}',
                         fit: BoxFit.cover,
                       ),
                     ),

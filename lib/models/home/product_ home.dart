@@ -33,7 +33,7 @@ class Products {
   String? nameProduct;
   String? description;
   int? price;
-  String? status;
+  int? status;
   int? discount;
   List<String>? picture;
   int? quantily;
