@@ -26,67 +26,108 @@ class DetailsBody extends StatelessWidget {
       children: [
         ProductImages(products: products),
         TopRoundedContainer(
-            color: Colors.white,
-            child: Column(
-              children: [
-                ProductDescription(
-                  products: products,
-                ),
-                TopRoundedContainer(
-                    color: const Color(0xFFF6F7F9),
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.only(right: 20),
-                          alignment: Alignment.centerRight,
-                          child: Text(
-                            'SL: ${products.quantily}',
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 24),
-                          ),
-                        ),
-                        TopRoundedContainer(
-                          color: Colors.white,
-                          child: Padding(
+          color: Colors.white,
+          child: Column(
+            children: [
+              ProductDescription(
+                products: products,
+              ),
+              TopRoundedContainer(
+                color: const Color(0xFFF6F7F9),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(right: 20),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'SL: ${products.quantily}',
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 24),
+                      ),
+                    ),
+                    TopRoundedContainer(
+                      color: Colors.white,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: getProportionateScreenWidth(40),
+                            top: getProportionateScreenWidth(2)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Text(
+                                NumberFormat('###,###', 'en_US')
+                                        .format(products.price) +
+                                    ' VND',
+                                style: TextStyle(
+                                    fontSize: getProportionateScreenWidth(24),
+                                    fontWeight: FontWeight.w600,
+                                    color: primaryColor),
+                              ),
+                            ),
+                            SizedBox(
+                              height: getProportionateScreenHeight(15),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: getProportionateScreenWidth(40),
+                              ),
+                              child: DefaultButton(
+                                text: 'Add To Cart',
+                                press: () {
+                                  var productCard = ProductCart(
+                                      uidProduct: '${products.idProduct}',
+                                      image: products.picture![0],
+                                      name: '${products.nameProduct}',
+                                      quantity: products.quantily!,
+                                      price: products.price!,
+                                      amount: 1);
+                                  productController.addProductToCart(
+                                      productCard, context);
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            Padding(
                               padding: EdgeInsets.only(
-                                  left: SizeConfig.screenWidth * 0.15,
-                                  right: SizeConfig.screenWidth * 0.15,
-                                  bottom: getProportionateScreenWidth(40),
-                                  top: getProportionateScreenWidth(2)),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    NumberFormat('###,###', 'en_US')
-                                            .format(products.price) +
-                                        ' VND',
-                                    style: TextStyle(
-                                        fontSize:
-                                            getProportionateScreenWidth(24),
-                                        fontWeight: FontWeight.w600,
-                                        color: primaryColor),
-                                  ),
-                                  SizedBox(
-                                    height: getProportionateScreenHeight(15),
-                                  ),
-                                  DefaultButton(
-                                    text: 'Add To Cart',
-                                    press: () {
-                                      var productCard = ProductCart(uidProduct: '${products.idProduct}',
-                                          image: products.picture![0],
-                                          name: '${products.nameProduct}',
-                                          quantity: products.quantily!,
-                                          price: products.price!,
-                                          amount: 1);
-                                      productController.addProductToCart(productCard, context);
-                                    },
-                                  )
-                                ],
-                              )),
-                        )
-                      ],
-                    ))
-              ],
-            ))
+                                left: getProportionateScreenWidth(10),
+                              ),
+                              child: const Text(
+                                'Review',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: getProportionateScreenWidth(10),
+                              ),
+                              child: const Divider(),
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              height: getProportionateScreenHeight(400),
+                              child: ListView.builder(
+                                itemCount: 10,
+                                itemBuilder: (context, index) {
+                                  return const Text('1');
+                                },
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
+        )
       ],
     );
   }

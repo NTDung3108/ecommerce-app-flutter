@@ -63,40 +63,40 @@ class Products {
         this.updateday});
 
   Products.fromJson(Map<String, dynamic> json) {
-    idProduct = json['idProduct'];
-    nameProduct = json['nameProduct'];
-    description = json['description'];
-    price = json['price'];
-    status = json['status'];
-    discount = json['discount'];
-    picture = json['picture'].cast<String>();
-    quantily = json['quantily'];
-    sold = json['sold'];
-    colors = json['colors'].cast<String>();
-    brandsId = json['brands_id'];
-    subcategoryId = json['subcategory_id'];
-    brand = json['brand'];
-    addDay = json['addDay'];
-    updateday = json['updateday'];
+    idProduct = json['idProduct'] ?? '';
+    nameProduct = json['nameProduct'] ?? '';
+    description = json['description'] ?? '';
+    price = json['price'] ?? '';
+    status = json['status'] ?? '';
+    discount = json['discount'] ?? '';
+    picture = json['picture'].cast<String>() ?? [];
+    quantily = json['quantily'] ?? '';
+    sold = json['sold'] ?? '';
+    colors = json['colors'].cast<String>() ?? [];
+    brandsId = json['brands_id'] ?? '';
+    subcategoryId = json['subcategory_id'] ?? '';
+    brand = json['brand'] ?? '';
+    addDay = json['addDay'] ?? '';
+    updateday = json['updateday'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['idProduct'] = this.idProduct;
-    data['nameProduct'] = this.nameProduct;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    data['status'] = this.status;
-    data['discount'] = this.discount;
-    data['picture'] = this.picture;
-    data['quantily'] = this.quantily;
-    data['sold'] = this.sold;
-    data['colors'] = this.colors;
-    data['brands_id'] = this.brandsId;
-    data['subcategory_id'] = this.subcategoryId;
-    data['brand'] = this.brand;
-    data['addDay'] = this.addDay;
-    data['updateday'] = this.updateday;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['idProduct'] = idProduct;
+    data['nameProduct'] = nameProduct;
+    data['description'] = description;
+    data['price'] = price;
+    data['status'] = status;
+    data['discount'] = discount;
+    data['picture'] = picture;
+    data['quantily'] = quantily;
+    data['sold'] = sold;
+    data['colors'] = colors;
+    data['brands_id'] = brandsId;
+    data['subcategory_id'] = subcategoryId;
+    data['brand'] = brand;
+    data['addDay'] = addDay;
+    data['updateday'] = updateday;
     return data;
   }
 }

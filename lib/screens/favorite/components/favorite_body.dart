@@ -51,7 +51,7 @@ class _FavoriteBody extends State<FavoriteBody> {
                                 color: const Color(0xFFF5F6F9),
                                 borderRadius: BorderRadius.circular(15)),
                             child: Image.network(
-                                'http://192.168.20.104:3000/${favoritesController.favoritesProduct[index].picture![0]}'),
+                                'http://192.168.30.105:3000/${favoritesController.favoritesProduct[index].picture![0]}'),
                           ),
                         ),
                       ),

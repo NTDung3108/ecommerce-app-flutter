@@ -40,7 +40,7 @@ class ProductCard extends StatelessWidget {
                     child: Hero(
                         tag: products.idProduct.toString(),
                         child: Image.network(
-                            'http://192.168.20.104:3000/${products.picture![0]}')),
+                            'http://192.168.30.105:3000/${products.picture![0]}')),
                   )),
               const SizedBox(
                 height: 10,
