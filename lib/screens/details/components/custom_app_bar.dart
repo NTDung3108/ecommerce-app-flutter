@@ -1,19 +1,45 @@
 import 'dart:developer';
 
+import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/constants.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class CustomAppBar extends StatelessWidget {
-  final double rating;
+class CustomAppBar extends StatefulWidget {
+  final double? rating;
 
-  CustomAppBar({required this.rating});
+  const CustomAppBar({Key? key, this.rating}) : super(key: key);
 
-  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
+  @override
+  _CustomAppBar createState() => _CustomAppBar();
+}
+
+class _CustomAppBar extends State<CustomAppBar> {
+  final TextEditingController commentController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+  double? bottomHeight;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus == true) {
+        setState(() {
+          bottomHeight = MediaQuery.of(context).size.height * 5 / 6;
+        });
+      } else {
+        setState(() {
+          bottomHeight = MediaQuery.of(context).size.height * 1 / 2;
+          hideKeyboard(context);
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,57 +76,170 @@ class CustomAppBar extends StatelessWidget {
                   context: context,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(40),
-                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(10),
+                      topLeft: Radius.circular(10),
                     ),
                   ),
                   enableDrag: false,
+                  isScrollControlled: true,
                   builder: (context) {
                     return Container(
-                      height: 190,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(40),
-                      ),
+                      height: bottomHeight ??
+                          MediaQuery.of(context).size.height * 1 / 2,
+                      margin: const EdgeInsets.only(top: 10),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
-                          SizedBox(
-                            height: 60,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Expanded(
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      icon: const Icon(
-                                        Icons.close,
-                                        color: Colors.black,
-                                        size: 20,
-                                      ),
+                          // SizedBox(
+                          //   width: double.infinity,
+                          //   child: Row(
+                          //     children: [
+                          //       InkWell(
+                          //         onTap: () => Navigator.of(context).pop(),
+                          //         child: Container(
+                          //           padding: const EdgeInsets.symmetric(
+                          //               horizontal: 15, vertical: 12),
+                          //           child: Icon(
+                          //             Icons.close_outlined,
+                          //             color: Theme.of(context)
+                          //                 .textTheme
+                          //                 .bodyText2!
+                          //                 .color,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //       Container(
+                          //         alignment: Alignment.center,
+                          //         padding:
+                          //             const EdgeInsets.symmetric(vertical: 15),
+                          //         decoration: const BoxDecoration(
+                          //           color: Colors.transparent,
+                          //           borderRadius: BorderRadius.only(
+                          //             topLeft: Radius.circular(10),
+                          //             topRight: Radius.circular(10),
+                          //           ),
+                          //         ),
+                          //         child: const Text(
+                          //           'Rating',
+                          //           style: TextStyle(
+                          //               color: Colors.black,
+                          //               fontSize: 20,
+                          //               fontWeight: FontWeight.w500),
+                          //           textAlign: TextAlign.center,
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+                          Container(
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                              ),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () => Navigator.of(context).pop(),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15, vertical: 12),
+                                    child: Icon(
+                                      Icons.close_outlined,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .color,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            getProportionateScreenWidth(100),
-                                      ),
-                                      child: const Text(
-                                        'Ratting',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          getProportionateScreenWidth(100)),
+                                  child: const Text(
+                                    'Rating',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(height: 1),
+                          Expanded(
+                            child: SafeArea(
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: SingleChildScrollView(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          children: [
+                                            RatingBar.builder(
+                                                initialRating: 1,
+                                                minRating: 1,
+                                                direction: Axis.horizontal,
+                                                allowHalfRating: true,
+                                                itemCount: 5,
+                                                itemPadding: EdgeInsets.symmetric(
+                                                    horizontal:
+                                                        getProportionateScreenWidth(
+                                                            4)),
+                                                itemBuilder: (context, _) =>
+                                                    const Icon(
+                                                      Icons.star,
+                                                      color: Colors.amber,
+                                                    ),
+                                                onRatingUpdate: (rating) {
+                                                  log('$rating');
+                                                }),
+                                            const SizedBox(height: 20),
+                                            TextFormField(
+                                              controller: commentController,
+                                              focusNode: _focusNode,
+                                              decoration: const InputDecoration(
+                                                labelText: 'Comment',
+                                              ),
+                                              maxLength: 200,
+                                              maxLines: 4,
+                                              keyboardType:
+                                                  TextInputType.multiline,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: DefaultButton(
+                                      text: 'Send Comment',
+                                      press: () {
+                                        hideKeyboard(context);
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                  SizedBox(
+                                      height: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom),
+                                ],
                               ),
                             ),
                           ),
-                          const Divider(),
                         ],
                       ),
                     );
@@ -116,7 +255,7 @@ class CustomAppBar extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      '$rating',
+                      '${widget.rating!}',
                       style: const TextStyle(
                           fontSize: 14, fontWeight: FontWeight.w600),
                     ),
