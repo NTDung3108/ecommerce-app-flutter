@@ -14,6 +14,8 @@ import 'package:get/get.dart';
 
 import '../services/user_services.dart';
 
+enum Status { Uninitialized, Authenticated, Authenticating, Unauthenticated }
+
 class AuthController extends GetxController {
   static AuthController instance = Get.find();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,6 +30,7 @@ class AuthController extends GetxController {
   var phone = '';
 
   Rx<Users> user = Users().obs;
+
 
   @override
   void onInit() {
@@ -228,4 +231,6 @@ class AuthController extends GetxController {
       return false;
     }
   }
+
+
 }
