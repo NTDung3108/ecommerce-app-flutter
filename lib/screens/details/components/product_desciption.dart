@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/controllers/favorite_controller.dart';
 import 'package:ecommerce_app/models/home/product_%20home.dart';
+import 'package:ecommerce_app/models/product/product_detail.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +10,10 @@ import 'package:get/get.dart';
 class ProductDescription extends StatefulWidget {
   const ProductDescription({
     Key? key,
-    required this.products,
+    required this.detail,
   }) : super(key: key);
 
-  final Products products;
+  final Detail detail;
 
   @override
   State<ProductDescription> createState() => _ProductDescriptionState();
@@ -30,17 +31,17 @@ class _ProductDescriptionState extends State<ProductDescription> {
   void initState() {
     super.initState();
 
-    int? length = widget.products.description?.length;
+    int? length = widget.detail.description?.length;
 
     if (length! > 50) {
-      firstHalf = widget.products.description?.substring(0, 50);
-      seconhalf = widget.products.description?.substring(50, length);
+      firstHalf = widget.detail.description?.substring(0, 50);
+      seconhalf = widget.detail.description?.substring(50, length);
     } else {
-      firstHalf = widget.products.description;
+      firstHalf = widget.detail.description;
       seconhalf = '';
     }
 
-    favoritesController.checkFavorite(widget.products.idProduct);
+    favoritesController.checkFavorite(widget.detail.idProduct);
   }
 
   @override
@@ -52,7 +53,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: Text(
-            '${widget.products.nameProduct}',
+            '${widget.detail.nameProduct}',
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
@@ -68,7 +69,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                 style: TextStyle(color: Colors.black),
               ),
               Text(
-                '${widget.products.brand}',
+                '${widget.detail.brand}',
                 style: const TextStyle(color: Colors.black),
               ),
               const Spacer(),
@@ -76,7 +77,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () {
-                      favoritesController.addOrDeleteFavorites(widget.products);
+                      // favoritesController.addOrDeleteFavorites(widget.detail);
                     },
                     child: Obx(() => Container(
                       padding: EdgeInsets.all(getProportionateScreenWidth(15)),
@@ -120,16 +121,16 @@ class _ProductDescriptionState extends State<ProductDescription> {
                   width: getProportionateScreenWidth(100),
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: widget.products.colors!.length,
+                    itemCount: widget.detail.colors!.length,
                     itemBuilder: (context, index) {
-                      if (index == widget.products.colors!.length - 1) {
+                      if (index == widget.detail.colors!.length - 1) {
                         return (Text(
-                          widget.products.colors![index],
+                          widget.detail.colors![index],
                           style: const TextStyle(color: Colors.black),
                         ));
                       } else {
                         return (Text(
-                          '${widget.products.colors![index]}, ',
+                          '${widget.detail.colors![index]}, ',
                           style: const TextStyle(color: Colors.black),
                         ));
                       }

@@ -8,21 +8,21 @@ class DetailsScreen extends StatelessWidget {
   static String routeName = "/details";
   @override
   Widget build(BuildContext context) {
-    final ProductDetailsArguments agrs =
-        ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
+    // final ProductDetailsArguments agrs =
+    //     ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
     return Scaffold(
       backgroundColor: const Color(0xFFF5F6F9),
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(AppBar().preferredSize.height),
         child: CustomAppBar(rating: 0.0),
       ),
-      body: DetailsBody(products: agrs.products),
+      body: DetailBody(),
     );
   }
 }
-
-class ProductDetailsArguments {
-  final Products products;
-
-  ProductDetailsArguments({required this.products});
-}
+//
+// class ProductDetailsArguments {
+//   final Products products;
+//
+//   ProductDetailsArguments({required this.products});
+// }

@@ -28,7 +28,7 @@ class _CartBody extends State<CartBody> {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Dismissible(
                         key: Key(
-                            productController.productCarts[index].uidProduct),
+                            '${productController.productCarts[index].uidProduct}'),
                         direction: DismissDirection.endToStart,
                         onDismissed: (direction) {
                           if (direction == DismissDirection.endToStart) {

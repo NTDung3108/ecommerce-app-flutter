@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/models/home/product_%20home.dart';
+import 'package:ecommerce_app/models/product/product_detail.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -6,10 +7,10 @@ import '../../../size_config.dart';
 class ProductImages extends StatefulWidget {
   const ProductImages({
     Key? key,
-    required this.products,
+    required this.detail,
   }) : super(key: key);
 
-  final Products products;
+  final Detail detail;
 
   @override
   _ProductImagesState createState() => _ProductImagesState();
@@ -26,9 +27,9 @@ class _ProductImagesState extends State<ProductImages> {
           child: AspectRatio(
             aspectRatio: 1,
             child: Hero(
-              tag: widget.products.idProduct.toString(),
+              tag: widget.detail.idProduct.toString(),
               child: Image.network(
-                  'http://192.168.30.105:3000/${widget.products.picture![selectedImage]}'),
+                  'http://192.168.2.101:3000/${widget.detail.picture![selectedImage]}'),
             ),
           ),
         ),
@@ -36,7 +37,7 @@ class _ProductImagesState extends State<ProductImages> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ...List.generate(widget.products.picture!.length,
+            ...List.generate(widget.detail.picture!.length,
                 (index) => buildSmallProductPreview(index)),
           ],
         )
@@ -64,7 +65,7 @@ class _ProductImagesState extends State<ProductImages> {
               color: primaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
         child: Image.network(
-            'http://192.168.30.105:3000/${widget.products.picture![index]}'),
+            'http://192.168.2.101:3000/${widget.detail.picture![index]}'),
       ),
     );
   }

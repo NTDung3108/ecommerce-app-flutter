@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 import 'auth_services.dart';
 
 class RattingServer {
-  static String server = 'http://192.168.30.105:3000/api';
+  static String server = 'http://192.168.2.101:3000/api';
   static var client = http.Client();
 
   static Future<List<Rating>?> getRating({required int? id}) async {

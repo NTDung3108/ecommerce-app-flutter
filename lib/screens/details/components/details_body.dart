@@ -1,6 +1,5 @@
 import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/controllers/product_controller.dart';
-import 'package:ecommerce_app/models/home/product_%20home.dart';
 import 'package:ecommerce_app/models/product/product_card.dart';
 import 'package:ecommerce_app/screens/details/components/product_desciption.dart';
 import 'package:ecommerce_app/screens/details/components/product_images.dart';
@@ -12,25 +11,31 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
+class DetailBody extends StatefulWidget {
+  const DetailBody({Key? key}) : super(key: key);
 
-class DetailsBody extends StatelessWidget {
-  DetailsBody({Key? key, required this.products}) : super(key: key);
+  @override
+  _DetailBodyState createState() => _DetailBodyState();
+}
 
-  final Products products;
-
+class _DetailBodyState extends State<DetailBody> {
   final ProductController productController = Get.find();
-
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ProductImages(products: products),
+        ProductImages(detail: productController.detail.value),
         TopRoundedContainer(
           color: Colors.white,
           child: Column(
             children: [
               ProductDescription(
-                products: products,
+                detail: productController.detail.value,
               ),
               TopRoundedContainer(
                 color: const Color(0xFFF6F7F9),
@@ -40,9 +45,9 @@ class DetailsBody extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 20),
                       alignment: Alignment.centerRight,
                       child: Text(
-                        'SL: ${products.quantily}',
+                        'SL: ${productController.detail.value.quantily}',
                         style:
-                            const TextStyle(color: Colors.black, fontSize: 24),
+                        const TextStyle(color: Colors.black, fontSize: 24),
                       ),
                     ),
                     TopRoundedContainer(
@@ -57,7 +62,7 @@ class DetailsBody extends StatelessWidget {
                             Center(
                               child: Text(
                                 NumberFormat('###,###', 'en_US')
-                                        .format(products.price) +
+                                    .format(productController.detail.value.price ?? 0) +
                                     ' VND',
                                 style: TextStyle(
                                     fontSize: getProportionateScreenWidth(24),
@@ -76,12 +81,12 @@ class DetailsBody extends StatelessWidget {
                                 text: 'Add To Cart',
                                 press: () {
                                   var productCard = ProductCart(
-                                      uidProduct: '${products.idProduct}',
-                                      image: products.picture![0],
-                                      name: '${products.nameProduct}',
-                                      quantity: products.quantily!,
-                                      price: products.price!,
-                                      amount: 1);
+                                      uidProduct: productController.detail.value.idProduct,
+                                      image: productController.detail.value.picture![0],
+                                      name: '${productController.detail.value.nameProduct}',
+                                      quantity: 1,
+                                      price: productController.detail.value.price!,
+                                      importPrice: productController.detail.value.importPrice! * 1);
                                   productController.addProductToCart(
                                       productCard, context);
                                 },
@@ -112,9 +117,9 @@ class DetailsBody extends StatelessWidget {
                               width: double.infinity,
                               height: getProportionateScreenHeight(400),
                               child: ListView.builder(
-                                itemCount: 10,
+                                itemCount: 1,
                                 itemBuilder: (context, index) {
-                                  return const Text('1');
+                                  return Container();
                                 },
                               ),
                             )

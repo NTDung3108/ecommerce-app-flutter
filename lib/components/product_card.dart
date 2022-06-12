@@ -1,11 +1,13 @@
 import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/controllers/product_controller.dart';
 import 'package:ecommerce_app/models/home/product_%20home.dart';
 import 'package:ecommerce_app/screens/details/details_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 class ProductCard extends StatelessWidget {
-  const ProductCard({
+  ProductCard({
     Key? key,
     this.width = 140,
     this.aspectRetio = 1.02,
@@ -14,7 +16,7 @@ class ProductCard extends StatelessWidget {
 
   final double width, aspectRetio;
   final Products products;
-
+  final ProductController _productController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,11 +24,10 @@ class ProductCard extends StatelessWidget {
       child: SizedBox(
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
-          onTap: () => Navigator.pushNamed(
-            context,
-            DetailsScreen.routeName,
-            arguments: ProductDetailsArguments(products: products),
-          ),
+          onTap: () {
+            _productController.productDetail(products.idProduct!,context);
+
+          } ,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -40,7 +41,7 @@ class ProductCard extends StatelessWidget {
                     child: Hero(
                         tag: products.idProduct.toString(),
                         child: Image.network(
-                            'http://192.168.30.105:3000/${products.picture![0]}')),
+                            'http://192.168.2.101:3000/${products.picture![0]}')),
                   )),
               const SizedBox(
                 height: 10,

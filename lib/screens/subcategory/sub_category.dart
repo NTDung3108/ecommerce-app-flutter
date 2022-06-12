@@ -42,7 +42,7 @@ class SubCategory extends StatelessWidget{
                         padding: EdgeInsets.all(10),
                         child: Column(
                           children: [
-                            Image.network('http://192.168.30.105:3000/${subCategoriesController.subcategories[index].icon}'),
+                            Image.network('http://192.168.2.101:3000/${subCategoriesController.subcategories[index].icon}'),
                             SizedBox(
                               height: getProportionateScreenWidth(10),
                             ),

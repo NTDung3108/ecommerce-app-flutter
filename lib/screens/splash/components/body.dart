@@ -7,6 +7,7 @@ import 'package:ecommerce_app/screens/splash/components/splash_content.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -14,7 +15,9 @@ class Body extends StatefulWidget {
 }
 
 class _Body extends State<Body> {
+  final secureStore = FlutterSecureStorage();
   int currentPage = 0;
+  bool isFirst = true;
   List<Map<String, String>> splashData = [
     {
       "text": "Welcome to Tokoto, Let’s shop!",
@@ -30,6 +33,26 @@ class _Body extends State<Body> {
       "image": "assets/images/splash_3.png"
     },
   ];
+
+  @override
+  initState() {
+    // TODO: implement initState
+    super.initState();
+    // isFirst = checkFirstTime();
+    // if(!isFirst){
+    //   Navigator.pushNamed(context, SignInScreen.routeName);
+    // }
+  }
+
+  checkFirstTime()async{
+    var value = await secureStore.read(key: 'isFirst');
+    if(value != null){
+      return false;
+    }else{
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -70,7 +93,8 @@ class _Body extends State<Body> {
                   ),
                   DefaultButton(
                     text: 'Continue',
-                    press: () {
+                    press: () async {
+                      await secureStore.write(key: 'isFirst', value: 'true');
                       Navigator.pushNamed(context, SignInScreen.routeName);
                     },
                   ),

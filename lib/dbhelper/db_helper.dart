@@ -31,10 +31,10 @@ class DBHelper {
         'name TEXT,'
         'quantity INTEGER,'
         'price INTEGER,'
-        'amount INTEGER,)');
+        'importPrice INTEGER)');
   }
 
-  Future<int> insertTask(ProductCart cart) async {
+  Future<int> insertCart(ProductCart cart) async {
     Database? db = await DBHelper._database;
     return await db!.insert(_tasks_table, {
       'uidProduct': cart.uidProduct,
@@ -42,7 +42,7 @@ class DBHelper {
       'name': cart.name,
       'quantity': cart.quantity,
       'price': cart.price,
-      'amount': cart.amount,
+      'importPrice': cart.importPrice,
     });
   }
 
@@ -51,9 +51,14 @@ class DBHelper {
     return await db!.query(_tasks_table);
   }
 
+  Future<List<Map<String, dynamic>>> queryRows(int idProduct) async {
+    Database? db = await DBHelper._database;
+    return await db!.rawQuery('SELECT*FROM $_tasks_table WHERE uidProduct=$idProduct');
+  }
+
   Future<int> delete(int id) async {
     Database? db = await DBHelper._database;
-    return await db!.delete(_tasks_table, where: 'id = ?', whereArgs: [id]);
+    return await db!.rawDelete('DELETE FROM $_tasks_table WHERE uidProduct = ?',[id]);
   }
 
   Future<int> deleteAllTasks() async {
@@ -61,11 +66,11 @@ class DBHelper {
     return await db!.delete(_tasks_table);
   }
 
-  Future<int> update(int id, int quantity, int amount) async {
+  Future<int> update(int id, int quantity) async {
     return await _database!.rawUpdate('''
     UPDATE $_tasks_table
     SET quantity = ?, amount = ?
-    WHERE id = ?
-    ''', [quantity, amount, id]);
+    WHERE uidProduct = ?
+    ''', [quantity,  id]);
   }
 }

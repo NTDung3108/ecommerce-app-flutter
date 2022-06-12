@@ -104,7 +104,7 @@ class _OrderForm extends State<OrderForm> {
                     onChanged: (PaymentMethods? value) {
                       setState(() {
                         _payments = value!;
-                        payment = txtDP;
+                        payment = 'COD';
                         log(payment);
                       });
                     },
@@ -117,14 +117,15 @@ class _OrderForm extends State<OrderForm> {
             SizedBox(height: getProportionateScreenHeight(40)),
             DefaultButton(
               text: "continue",
-              press: () {
+              press: () async {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
                   if(address == ''){
                     address = userController.information.value.address;
                   }
-                  log(address!+'/'+'$note'+'/'+payment);
-                  productController.checkAndUpdateProducts(address!, '$note', payment, context);
+                  bool isEnough = await productController.checkProducts(context);
+                  if(isEnough)
+                    productController.saveOrderBuyProduct(address!, note!, payment, context);
                   // Navigator.pop(context);
                 }
               },

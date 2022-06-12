@@ -28,7 +28,7 @@ class DiscountsHome {
 }
 
 class Discounts {
-  String? idDiscount;
+  int? idDiscount;
   String? title;
   String? content;
   String? picture;

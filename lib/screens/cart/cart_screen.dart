@@ -26,10 +26,12 @@ class CartScreen extends StatelessWidget {
               'Your Cart',
               style: TextStyle(color: Colors.black),
             ),
-            Obx(() => Text(
-                  '${productController.productCarts.length} item',
-                  style: Theme.of(context).textTheme.caption,
-                ))
+            Obx(
+              () => Text(
+                '${productController.productCarts.length} item',
+                style: Theme.of(context).textTheme.caption,
+              ),
+            )
           ],
         ),
       ),

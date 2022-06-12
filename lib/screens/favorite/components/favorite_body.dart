@@ -32,8 +32,8 @@ class _FavoriteBody extends State<FavoriteBody> {
               return GestureDetector(
                 onTap: () {
                   log('next to product');
-                  Navigator.pushNamed(context, DetailsScreen.routeName,
-                      arguments: ProductDetailsArguments(products: favoritesController.favoritesProduct[index]));
+                  Navigator.pushNamed(context, DetailsScreen.routeName,);
+                      // arguments: ProductDetailsArguments(products: favoritesController.favoritesProduct[index]));
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
@@ -51,7 +51,7 @@ class _FavoriteBody extends State<FavoriteBody> {
                                 color: const Color(0xFFF5F6F9),
                                 borderRadius: BorderRadius.circular(15)),
                             child: Image.network(
-                                'http://192.168.30.105:3000/${favoritesController.favoritesProduct[index].picture![0]}'),
+                                'http://192.168.2.101:3000/${favoritesController.favoritesProduct[index].picture![0]}'),
                           ),
                         ),
                       ),

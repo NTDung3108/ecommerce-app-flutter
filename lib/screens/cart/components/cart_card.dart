@@ -28,7 +28,7 @@ class CartCard extends StatelessWidget {
                 color: const Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.network('http://192.168.30.105:3000/${cart.image}'),
+              child: Image.network('http://192.168.2.101:3000/${cart.image}'),
             ),
           ),
         ),
@@ -38,7 +38,7 @@ class CartCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              cart.name.substring(0, 20) + '...',
+              cart.name!.substring(0, 20) + '...',
               style: const TextStyle(color: Colors.black, fontSize: 16),
               maxLines: 2,
             ),
@@ -58,7 +58,7 @@ class CartCard extends StatelessWidget {
                   },
                   showShadow: true,
                 ),
-                Text('${cart.amount}',
+                Text('${cart.quantity}',
                     style: Theme.of(context).textTheme.bodyText1),
                 RoundedIconBtn(
                   icon: Icons.remove,
