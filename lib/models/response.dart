@@ -5,8 +5,8 @@ class Response {
   Response({this.resp, this.msj});
 
   Response.fromJson(Map<String, dynamic> json) {
-    resp = json['resp'];
-    msj = json['msj'];
+    resp = json['resp'] ?? false;
+    msj = json['msj'] ?? '';
   }
 
   Map<String, dynamic> toJson() {

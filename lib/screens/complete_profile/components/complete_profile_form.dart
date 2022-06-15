@@ -11,6 +11,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+enum Gender { male, female, other }
+
 class CompeleteProfileForm extends StatefulWidget {
   const CompeleteProfileForm({Key? key}) : super(key: key);
 
@@ -25,6 +27,9 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
   String? lastName;
   String? phoneNumber;
   String? address;
+
+  Gender? _gender = Gender.male;
+  String sGender = 'male';
 
   final UserController userController = Get.find();
 
@@ -54,6 +59,44 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           buildLastNameFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
+          Row(
+            children: <Widget>[
+              Radio<Gender>(
+                value: Gender.male,
+                groupValue: _gender,
+                onChanged: (Gender? value) {
+                  setState(() {
+                    _gender = value;
+                    sGender = 'male';
+                  });
+                },
+              ),
+              Text('male'),
+              Radio<Gender>(
+                value: Gender.female,
+                groupValue: _gender,
+                onChanged: (Gender? value) {
+                  setState(() {
+                    _gender = value;
+                    sGender = 'female';
+                  });
+                },
+              ),
+              Text('female'),
+              Radio<Gender>(
+                value: Gender.other,
+                groupValue: _gender,
+                onChanged: (Gender? value) {
+                  setState(() {
+                    _gender = value;
+                    sGender = 'other';
+                  });
+                },
+              ),
+              Text('other'),
+            ],
+          ),
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildAddressFormField(),
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
@@ -70,10 +113,10 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
                     lastName: lastName,
                     address: address,
                     phone: FirebaseAuth.instance.currentUser?.phoneNumber!.replaceAll('+1', ''),
-                    reference: 'abc',
+                    gender: sGender,
                     uid: FirebaseAuth.instance.currentUser?.uid,
                     context: context);
-                //Navigator.pushNamed(context, OtpScreen.routeName);
+                // Navigator.pushNamed(context, OtpScreen.routeName);
               }
             },
           ),

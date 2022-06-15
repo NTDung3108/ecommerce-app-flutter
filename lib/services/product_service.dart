@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_app/models/brands_response.dart';
 import 'package:ecommerce_app/models/home/product_%20home.dart';
 import 'package:ecommerce_app/models/product/order_detail.dart';
@@ -61,20 +59,42 @@ class ProductService {
         headers: {'Content-type': 'application/json', 'xx-token': '$token'},
         body: body);
 
-    if(resp.statusCode == 200)
+    if (resp.statusCode == 200)
       return Response.fromJson(jsonDecode(resp.body));
     return null;
   }
 
   static Future<Response?> checkQuantityProduct(
-      {required int uidProduct, required int quntity}) async {
+      {required int uidProduct, required int quantity}) async {
     var token = await AuthServices().readToken();
     Uri uri = Uri.parse(
-        '$server/check-quantity-product?idProduct=$uidProduct&quantity=$quntity');
+        '$server/check-quantity-product?idProduct=$uidProduct&quantity=$quantity');
 
     var resp = await client.get(uri,
         headers: {'Content-type': 'application/json', 'xx-token': '$token'});
-    if (resp.statusCode == 200) return Response.fromJson(jsonDecode(resp.body));
+    if (resp.statusCode == 200)
+      return Response.fromJson(jsonDecode(resp.body));
+    return null;
+  }
+
+  static Future<Response?> updateQuantityProduct(
+      {required int idProduct, required int quantity}) async {
+    var token = await AuthServices().readToken();
+
+    Map<String, dynamic> data = {
+      'idProduct': idProduct,
+      'quantity': quantity,
+    };
+
+    var body = jsonEncode(data);
+
+    Uri uri = Uri.parse('$server/update-quantity-product');
+
+    var resp = await client.put(uri,
+        headers: {'Content-type': 'application/json', 'xx-token': '$token'},
+        body: body);
+    if(resp.statusCode == 200)
+      return Response.fromJson(jsonDecode(resp.body));
     return null;
   }
 

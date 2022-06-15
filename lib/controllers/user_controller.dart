@@ -42,7 +42,7 @@ class UserController extends GetxController {
       required String? lastName,
       required String? phone,
       required String? address,
-      required String? reference,
+      required String? gender,
       required String? uid,
       required BuildContext context}) async {
     var resp = await UserServices.registerUserInfo(
@@ -50,7 +50,7 @@ class UserController extends GetxController {
         lastName: lastName,
         phone: phone,
         address: address,
-        reference: reference,
+        gender: gender,
         uid: uid
     );
 

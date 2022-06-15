@@ -44,8 +44,9 @@ class ProductController extends GetxController {
 
   int get totalPrice =>
       productCarts.fold(0, (sum, item) => sum + (item.quantity! * item.price!));
-  int get totalOriginal =>
-      productCarts.fold(0, (sum, item) => sum + (item.quantity! * item.importPrice!));
+
+  int get totalOriginal => productCarts.fold(
+      0, (sum, item) => sum + (item.quantity! * item.importPrice!));
 
   @override
   void onInit() {
@@ -94,7 +95,6 @@ class ProductController extends GetxController {
         content: Text('You need to login to use this function'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
     }
   }
 
@@ -109,33 +109,59 @@ class ProductController extends GetxController {
     try {
       var resp = await ProductService.saveOrderBuyProduct(
           status: '0',
-          date: (DateTime.now().millisecondsSinceEpoch/1000).ceil(),
+          date: (DateTime.now().millisecondsSinceEpoch / 1000).ceil(),
           amount: '$totalPrice',
           address: address,
           note: note,
           payment: payment,
-          tax: totalPrice*0.1,
+          tax: totalPrice * 0.1,
           totalOriginal: totalOriginal,
           datee2: DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.now()),
-          products: productCarts
-      );
+          products: productCarts);
 
       if (resp!.resp!) {
-        productCarts.value = [];
-        await DBHelper().deleteAllTasks();
-        const snackBar = SnackBar(
-          content: Text('The product has been order'),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        Navigator.pop(context);
+
+        var update = await updateQuantity();
+        if(update){
+          productCarts.value = [];
+          await DBHelper().deleteAllTasks();
+          const snackBar = SnackBar(
+            content: Text('The product has been order'),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          Navigator.pop(context);
+        }else{
+          log('false');
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('${resp!.msj}'),
+          content: Text('${resp.msj}'),
         ));
       }
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  Future<bool> updateQuantity() async {
+    bool _resp = false;
+    try {
+      for (int i = 0; i < productCarts.length; i++) {
+        var resp = await ProductService.updateQuantityProduct(
+            idProduct: productCarts[i].uidProduct!,
+            quantity: productCarts[i].quantity!);
+        if (resp!.resp!) {
+          _resp = true;
+        }else{
+          _resp = false;
+          return false;
+        }
+      }
+
+    } catch (e) {
+      return false;
+    }
+    return _resp;
   }
 
   Future<bool> checkProducts(BuildContext context) async {
@@ -145,7 +171,7 @@ class ProductController extends GetxController {
       for (int i = 0; i < productCarts.length; i++) {
         var resp = await ProductService.checkQuantityProduct(
             uidProduct: productCarts[i].uidProduct!,
-            quntity: productCarts[i].quantity!);
+            quantity: productCarts[i].quantity!);
         if (!resp!.resp!) {
           _resp = false;
           _msj.add(resp.msj!);
@@ -193,7 +219,8 @@ class ProductController extends GetxController {
     int quantity = productCarts[index].quantity ?? 0;
     productCarts[index].quantity = quantity + 1;
     productCarts.refresh();
-    await DBHelper().update(productCarts[index].uidProduct!, productCarts[index].quantity!);
+    await DBHelper()
+        .update(productCarts[index].uidProduct!, productCarts[index].quantity!);
   }
 
   void suntractQuantityProduct(int index) async {
@@ -201,7 +228,8 @@ class ProductController extends GetxController {
     if (quantity > 1) {
       productCarts[index].quantity = quantity - 1;
       productCarts.refresh();
-      await DBHelper().update(productCarts[index].uidProduct!, productCarts[index].quantity!);
+      await DBHelper().update(
+          productCarts[index].uidProduct!, productCarts[index].quantity!);
     } else {
       productCarts.removeAt(index);
       await DBHelper().delete(productCarts[index].uidProduct!);

@@ -28,7 +28,7 @@ class UserServices {
       String? lastName,
       String? phone,
       String? address,
-      String? reference,
+      String? gender,
       String? uid}) async {
     Uri uri = Uri.parse('$server/personal/register');
 
@@ -42,7 +42,7 @@ class UserServices {
         'lastname': lastName,
         'phone': phone,
         'address': address,
-        'reference': reference,
+        'gender': gender,
         'uid': uid
       },
     );
