@@ -11,12 +11,13 @@ class ProductCard extends StatelessWidget {
     Key? key,
     this.width = 140,
     this.aspectRetio = 1.02,
-    required this.products,
+    required this.products, this.page,
   }) : super(key: key);
 
   final double width, aspectRetio;
   final Products products;
   final ProductController _productController = Get.find();
+  final String? page;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,8 +26,7 @@ class ProductCard extends StatelessWidget {
         width: getProportionateScreenWidth(width),
         child: GestureDetector(
           onTap: () {
-            _productController.productDetail(products.idProduct!,context);
-
+            _productController.productDetail(products.idProduct!,context,page!);
           } ,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +41,7 @@ class ProductCard extends StatelessWidget {
                     child: Hero(
                         tag: products.idProduct.toString(),
                         child: Image.network(
-                            'http://192.168.2.101:3000/${products.picture![0]}')),
+                            'http://10.50.10.135:3000/${products.picture![0]}')),
                   )),
               const SizedBox(
                 height: 10,

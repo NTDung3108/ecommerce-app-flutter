@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:ecommerce_app/models/Information.dart';
+import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:ecommerce_app/screens/sign_in/sign_in_screen.dart';
 import 'package:ecommerce_app/services/user_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,17 +18,17 @@ class UserController extends GetxController {
   final picker = ImagePicker();
 
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    getUserInfo();
-  }
+  // @override
+  // void onInit() {
+  //   // TODO: implement onInit
+  //   super.onInit();
+  //   getUserInfo();
+  // }
 
-  void getUserInfo() async {
+  void getUserInfo(BuildContext context) async {
     try {
       isLoading(true);
-      var personRSP = await UserServices.getPersonInformation();
+      var personRSP = await UserServices.getPersonInformation(context);
       if(personRSP != null){
         information.value = personRSP;
         information.refresh();
@@ -56,7 +57,7 @@ class UserController extends GetxController {
 
     if (resp.resp! == true) {
       log(resp.msj!);
-      Navigator.pushNamed(context, SignInScreen.routeName);
+      Navigator.pushNamed(context, SignInScreen.routeName, arguments: SignInArguments(page: HomeScreen.routeName));
     } else {
       log(resp.msj!);
     }

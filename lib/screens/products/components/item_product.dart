@@ -6,6 +6,10 @@ import 'package:get/get.dart';
 import '../../../size_config.dart';
 
 class ItemProduct extends StatefulWidget{
+  String page;
+
+  ItemProduct({Key? key, required this.page}) : super(key: key);
+
   _ItemProduct createState() => _ItemProduct();
 }
 
@@ -45,7 +49,7 @@ class _ItemProduct extends State<ItemProduct>{
               mainAxisExtent: 250
           ),
           itemBuilder: (context, index){
-            return ProductCard(products: productController.searchProduct[index]);
+            return ProductCard(products: productController.searchProduct[index], page: widget.page);
           },
         );
       }),

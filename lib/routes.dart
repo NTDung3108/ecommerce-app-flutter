@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/screens/favorite/favorite_screen.dart';
+import 'package:ecommerce_app/screens/first_page.dart';
 import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:ecommerce_app/screens/more_special/more_special_screen.dart';
 import 'package:ecommerce_app/screens/oder/oder_screen.dart';
@@ -21,7 +22,8 @@ import 'screens/splash/splash_screen.dart';
 import 'screens/userInfo/user_info.dart';
 
 final Map<String, WidgetBuilder> routes = {
-  SplashScreen.routeName: (context) => SplashScreen(),
+  FirstPage.routeName: (context) => const FirstPage(),
+  SplashScreen.routeName: (context) => const SplashScreen(),
   SignInScreen.routeName: (context) => SignInScreen(),
   ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
   PhoneVerification.routeName: (context) => PhoneVerification(),

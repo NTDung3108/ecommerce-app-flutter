@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class Body extends StatefulWidget {
+
   @override
   _Body createState() => _Body();
 }
@@ -33,25 +34,6 @@ class _Body extends State<Body> {
       "image": "assets/images/splash_3.png"
     },
   ];
-
-  @override
-  initState() {
-    // TODO: implement initState
-    super.initState();
-    // isFirst = checkFirstTime();
-    // if(!isFirst){
-    //   Navigator.pushNamed(context, SignInScreen.routeName);
-    // }
-  }
-
-  checkFirstTime()async{
-    var value = await secureStore.read(key: 'isFirst');
-    if(value != null){
-      return false;
-    }else{
-      return true;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +77,7 @@ class _Body extends State<Body> {
                     text: 'Continue',
                     press: () async {
                       await secureStore.write(key: 'isFirst', value: 'true');
-                      Navigator.pushNamed(context, SignInScreen.routeName);
+                      Navigator.pushNamed(context, HomeScreen.routeName);
                     },
                   ),
                   const Spacer(

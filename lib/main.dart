@@ -1,4 +1,6 @@
+import 'package:ecommerce_app/controllers/user_controller.dart';
 import 'package:ecommerce_app/dbhelper/db_helper.dart';
+import 'package:ecommerce_app/screens/first_page.dart';
 import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:ecommerce_app/screens/splash/splash_screen.dart';
 import 'package:ecommerce_app/theme.dart';
@@ -14,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp().then((value) {
     Get.put(AuthController());
+    Get.put(UserController());
   });
   await DBHelper().database;
   runApp(MyApp());
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: theme(),
-      initialRoute: SplashScreen.routeName,
+      initialRoute: FirstPage.routeName,
       routes: routes,
     );
   }

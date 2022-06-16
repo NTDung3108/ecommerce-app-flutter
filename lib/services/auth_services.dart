@@ -8,7 +8,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class AuthServices {
-  static String server = 'http://192.168.2.101:3000/api';
+  static String server = 'http://10.50.10.135:3000/api';
   static var client = http.Client();
   FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
@@ -48,7 +48,7 @@ class AuthServices {
     return AuthModel.fromJson(jsonDecode(resp.body));
   }
 
-  Future<UpdateProfile> updateImageProfile(
+  Future<UpdateProfile?> updateImageProfile(
       {required String image, required String uidPerson}) async {
     final token = await readToken();
 
@@ -61,8 +61,10 @@ class AuthServices {
 
     final resp = await request.send();
     var datas = await http.Response.fromStream(resp);
-
-    return UpdateProfile.fromJson(jsonDecode(datas.body));
+    if(datas.statusCode == 200) {
+      return UpdateProfile.fromJson(jsonDecode(datas.body));
+    }
+    return null;
   }
   // Flutter Secure Storage
 
@@ -87,8 +89,8 @@ class AuthServices {
     return secureStorage.read(key: 'xtoken');
   }
 
-  Future<String> readReToken() async {
-    return '${secureStorage.read(key: 'refreshToken')}';
+  Future<String?> readReToken() async {
+    return secureStorage.read(key: 'refreshToken');
   }
 
   Future<void> deleteToken() async {

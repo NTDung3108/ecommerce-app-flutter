@@ -8,7 +8,10 @@ import 'filter_list.dart';
 import 'item_product.dart';
 
 class ProductsBody extends StatelessWidget{
+  String page;
   final ProductController productController = Get.find();
+
+  ProductsBody({Key? key, required this.page}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class ProductsBody extends StatelessWidget{
               SizedBox(height: getProportionateScreenHeight(20)),
               FilterList(),
               SizedBox(height: getProportionateScreenHeight(20),),
-              ItemProduct()
+              ItemProduct(page: page,)
             ],
           ),
         )

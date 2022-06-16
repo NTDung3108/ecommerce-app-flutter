@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/components/product_card.dart';
 import 'package:ecommerce_app/controllers/home_controller.dart';
 import 'package:ecommerce_app/screens/home/components/section_title.dart';
+import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class PopularProducts extends StatelessWidget {
                 itemCount: homeController.homeProducts.length,
                 itemBuilder: (context, index) {
                   return ProductCard(
-                      products: homeController.homeProducts[index]);
+                      products: homeController.homeProducts[index], page: HomeScreen.routeName,);
                 });
           }),
         ),

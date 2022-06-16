@@ -1,18 +1,21 @@
 import 'dart:convert';
+import 'package:ecommerce_app/components/login_dialog.dart';
 import 'package:ecommerce_app/models/Information.dart';
 import 'package:ecommerce_app/models/response.dart';
 import 'package:ecommerce_app/models/update_profile.dart';
 import 'package:ecommerce_app/models/userInfomation/user_information.dart';
+import 'package:ecommerce_app/screens/profile/profile_screen.dart';
 import 'package:ecommerce_app/services/auth_services.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class UserServices {
-  static String server = 'http://192.168.2.101:3000/api';
+  static String server = 'http://10.50.10.135:3000/api';
   static var client = http.Client();
   static FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
-  static Future<Information?> getPersonInformation() async {
+  static Future<Information?> getPersonInformation(BuildContext context) async {
     final token = await AuthServices().readToken();
 
     Uri uri = Uri.parse('$server/get-personal-information');
@@ -20,7 +23,14 @@ class UserServices {
     final response = await client.get(uri,
         headers: {'Accept': 'application/json', 'xx-token': '$token'});
 
-    return UserInformation.fromJson(jsonDecode(response.body)).information;
+    if(response.statusCode == 200) {
+      return UserInformation.fromJson(jsonDecode(response.body)).information;
+    }
+    if(response.statusCode == 401){
+      LoginDialog.showLoginDialog(context, ProfileScreen.routeName);
+      return null;
+    }
+    return null;
   }
 
   static Future<Response> registerUserInfo(

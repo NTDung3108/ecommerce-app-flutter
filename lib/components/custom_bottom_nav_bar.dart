@@ -52,23 +52,7 @@ class CustomBottomNavBar extends StatelessWidget {
                     : inActiveIconColor,
               ),
               onPressed: () async {
-                var value = await AuthServices().hasToken();
-                if(value){
-                  Navigator.pushNamed(context, FavoriteScreen.routeName);
-                }else{
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        content: const Text('You need to login to use this function'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'Cancel'),
-                            child: const Text('Cancel'),
-                          ),
-                        ],
-                      ),
-                  );
-                }
+                Navigator.pushNamed(context, FavoriteScreen.routeName);
               }
 
             ),

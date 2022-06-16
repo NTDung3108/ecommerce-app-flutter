@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/controllers/favorite_controller.dart';
 import 'package:ecommerce_app/models/home/product_%20home.dart';
 import 'package:ecommerce_app/models/product/product_detail.dart';
+import 'package:ecommerce_app/screens/details/details_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +78,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                   alignment: Alignment.centerRight,
                   child: GestureDetector(
                     onTap: () {
-                      // favoritesController.addOrDeleteFavorites(widget.detail);
+                      favoritesController.addOrDeleteFavorites(widget.detail.idProduct!, context, DetailsScreen.routeName);
                     },
                     child: Obx(() => Container(
                       padding: EdgeInsets.all(getProportionateScreenWidth(15)),

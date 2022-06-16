@@ -8,6 +8,7 @@ import 'package:ecommerce_app/screens/sign_in/sign_in_screen.dart';
 import 'package:ecommerce_app/screens/sign_up/sign_up_screen.dart';
 import 'package:ecommerce_app/services/auth_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
@@ -78,15 +79,18 @@ class AuthController extends GetxController {
         },
         codeAutoRetrievalTimeout: (String verificationId) {
           this.verificationId = verificationId;
-          print(verificationId);
-          print("Timout");
+          if (kDebugMode) {
+            print(verificationId);
+            print("Timout");
+          }
+
         },
         timeout: const Duration(seconds: 60));
   }
 
   void otp(String smsCode, BuildContext context) async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: this.verificationId, smsCode: smsCode);
+        verificationId: verificationId, smsCode: smsCode);
     UserCredential userCredential =
         await _auth.signInWithCredential(credential);
     if (userCredential != null) {
@@ -123,7 +127,7 @@ class AuthController extends GetxController {
           await UserServices.forgotPassword(password: password, phone: phone);
       if (resp!.resp!) {
         log(resp.msj!);
-        Navigator.pushNamed(context, SignInScreen.routeName);
+        Navigator.pushNamed(context, SignInScreen.routeName, arguments: HomeScreen.routeName);
         var snackBar = SnackBar(
           content: Text(resp.msj!),
         );
@@ -212,7 +216,7 @@ class AuthController extends GetxController {
       final resp = await AuthServices()
           .updateImageProfile(image: image, uidPerson: '$uidPerson');
 
-      await secureStorage.write(key: 'profile', value: resp.profile);
+      await secureStorage.write(key: 'profile', value: resp!.profile);
 
       user.value.image = resp.profile;
     } catch (e) {

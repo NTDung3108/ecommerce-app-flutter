@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'sign_form.dart';
 
 class SingInBody extends StatelessWidget {
+  String page;
+
+  SingInBody({Key? key, required this.page}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -33,7 +36,7 @@ class SingInBody extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-                SignForm(),
+                SignForm(page: page,),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +56,7 @@ class SingInBody extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
-                NoAccountText(),
+                const NoAccountText(),
               ],
             ),
           ),

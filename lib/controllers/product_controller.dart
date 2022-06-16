@@ -53,7 +53,6 @@ class ProductController extends GetxController {
     // TODO: implement onInit
     super.onInit();
     fetchAllProduct();
-    getOrderBuy();
     getAllCart();
   }
 
@@ -117,7 +116,8 @@ class ProductController extends GetxController {
           tax: totalPrice * 0.1,
           totalOriginal: totalOriginal,
           datee2: DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.now()),
-          products: productCarts);
+          products: productCarts,
+      context: context);
 
       if (resp!.resp!) {
 
@@ -236,11 +236,11 @@ class ProductController extends GetxController {
     }
   }
 
-  void getOrderBuy() async {
+  void getOrderBuy(BuildContext context, String page) async {
     var value = await AuthServices().hasToken();
     if (value) {
-      var resp = await ProductService.getPuchasedProducts();
-      if (resp.resp!) {
+      var resp = await ProductService.getPuchasedProducts(context, page);
+      if (resp!.resp! ) {
         log(resp.msj!);
         orders.value = resp.orderBuy!;
       } else {
@@ -285,7 +285,7 @@ class ProductController extends GetxController {
     if (listProduct != null) allProducts = listProduct;
   }
 
-  void productDetail(int idProduct, BuildContext context) async {
+  void productDetail(int idProduct, BuildContext context, String page) async {
     try {
       var resp = await ProductService.getDetailProduct(id: idProduct);
       if (resp!.resp!) {
@@ -294,6 +294,7 @@ class ProductController extends GetxController {
         Navigator.pushNamed(
           context,
           DetailsScreen.routeName,
+          arguments: DetailPageArguments(page: page)
         );
       }
     } catch (e) {

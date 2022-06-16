@@ -5,16 +5,21 @@ import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/components/form_error.dart';
 import 'package:ecommerce_app/constants.dart';
 import 'package:ecommerce_app/controllers/auth_controller.dart';
+import 'package:ecommerce_app/controllers/favorite_controller.dart';
 import 'package:ecommerce_app/helper/keyboard.dart';
 import 'package:ecommerce_app/screens/forgot_password/forgot_password_screen.dart';
+import 'package:ecommerce_app/screens/sign_in/sign_in_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../home/home_screen.dart';
 
 class SignForm extends StatefulWidget {
+  String page;
+
+  SignForm({Key? key, required this.page}) : super(key: key);
+
   @override
   _SignFormState createState() => _SignFormState();
 }
@@ -27,6 +32,7 @@ class _SignFormState extends State<SignForm> {
   final List<String?> errors = [];
 
   final AuthController authController = Get.find();
+  final FavoritesController favoritesController = Get.find();
 
   void addError({String? error}) {
     if (!errors.contains(error)) {
@@ -93,7 +99,8 @@ class _SignFormState extends State<SignForm> {
 
                 var auth = await authController.login(phone, password, context);
                 if (auth) {
-                  Navigator.pushNamed(context, HomeScreen.routeName);
+                  favoritesController.getFavoritesProduct(context, SignInScreen.routeName);
+                  Navigator.pushNamed(context, widget.page);
                 } else {
                   addError(error: 'Wrong Credentials');
                 }

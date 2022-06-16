@@ -9,10 +9,11 @@ import '../../controllers/user_controller.dart';
 class ProfileScreen extends StatelessWidget {
   static String routeName = '/profile';
 
-  final UserController userController = Get.put(UserController());
+  final UserController userController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    userController.getUserInfo(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text(

@@ -5,6 +5,7 @@ import 'package:ecommerce_app/constants.dart';
 import 'package:ecommerce_app/controllers/favorite_controller.dart';
 import 'package:ecommerce_app/controllers/product_controller.dart';
 import 'package:ecommerce_app/screens/details/details_screen.dart';
+import 'package:ecommerce_app/screens/favorite/favorite_screen.dart';
 import 'package:ecommerce_app/screens/products/products_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/cupertino.dart';
@@ -32,8 +33,14 @@ class _FavoriteBody extends State<FavoriteBody> {
               return GestureDetector(
                 onTap: () {
                   log('next to product');
-                  Navigator.pushNamed(context, DetailsScreen.routeName,);
-                      // arguments: ProductDetailsArguments(products: favoritesController.favoritesProduct[index]));
+                  productController.productDetail(
+                      favoritesController.favoritesProduct[index].idProduct!,
+                      context, FavoriteScreen.routeName);
+                  // Navigator.pushNamed(
+                  //   context,
+                  //   DetailsScreen.routeName,
+                  // );
+                  // arguments: ProductDetailsArguments(products: favoritesController.favoritesProduct[index]));
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
@@ -51,7 +58,7 @@ class _FavoriteBody extends State<FavoriteBody> {
                                 color: const Color(0xFFF5F6F9),
                                 borderRadius: BorderRadius.circular(15)),
                             child: Image.network(
-                                'http://192.168.2.101:3000/${favoritesController.favoritesProduct[index].picture![0]}'),
+                                'http://10.50.10.135:3000/${favoritesController.favoritesProduct[index].picture![0]}'),
                           ),
                         ),
                       ),
@@ -76,7 +83,10 @@ class _FavoriteBody extends State<FavoriteBody> {
                               borderRadius: BorderRadius.circular(50),
                               onTap: () {
                                 log('next to favorite');
-                                favoritesController.addOrDeleteFavorites(favoritesController.favoritesProduct[index]);
+                                favoritesController.addOrDeleteFavorites(
+                                    favoritesController.favoritesProduct[index].idProduct!,
+                                    context,
+                                    FavoriteScreen.routeName);
                               },
                               child: Container(
                                 padding: EdgeInsets.all(

@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 
 import '../../../constants.dart';
 class DetailBody extends StatefulWidget {
+
   const DetailBody({Key? key}) : super(key: key);
 
   @override

@@ -3,16 +3,14 @@ import 'dart:developer';
 import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/constants.dart';
 import 'package:ecommerce_app/size_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomAppBar extends StatefulWidget {
   final double? rating;
-
-  const CustomAppBar({Key? key, this.rating}) : super(key: key);
+  final String page;
+  const CustomAppBar({Key? key, this.rating, required this.page}) : super(key: key);
 
   @override
   _CustomAppBar createState() => _CustomAppBar();
@@ -61,7 +59,7 @@ class _CustomAppBar extends State<CustomAppBar> {
                   backgroundColor: Colors.white,
                   padding: EdgeInsets.zero,
                 ),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => Navigator.pushNamed(context, widget.page),
                 child: SvgPicture.asset(
                   "assets/icons/Back ICon.svg",
                   height: 15,

@@ -1,4 +1,3 @@
-import 'package:ecommerce_app/models/home/product_%20home.dart';
 import 'package:ecommerce_app/models/product/product_detail.dart';
 import 'package:flutter/material.dart';
 import '../../../constants.dart';
@@ -29,7 +28,7 @@ class _ProductImagesState extends State<ProductImages> {
             child: Hero(
               tag: widget.detail.idProduct.toString(),
               child: Image.network(
-                  'http://192.168.2.101:3000/${widget.detail.picture![selectedImage]}'),
+                  'http://10.50.10.135:3000/${widget.detail.picture![selectedImage]}'),
             ),
           ),
         ),
@@ -65,7 +64,7 @@ class _ProductImagesState extends State<ProductImages> {
               color: primaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
         child: Image.network(
-            'http://192.168.2.101:3000/${widget.detail.picture![index]}'),
+            'http://10.50.10.135:3000/${widget.detail.picture![index]}'),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ecommerce_app/components/login_dialog.dart';
 import 'package:ecommerce_app/models/brands_response.dart';
 import 'package:ecommerce_app/models/home/product_%20home.dart';
 import 'package:ecommerce_app/models/product/order_detail.dart';
@@ -6,11 +7,13 @@ import 'package:ecommerce_app/models/product/product_card.dart';
 import 'package:ecommerce_app/models/product/product_detail.dart';
 import 'package:ecommerce_app/models/product/puchased_products_response.dart';
 import 'package:ecommerce_app/models/response.dart';
+import 'package:ecommerce_app/screens/oder/oder_screen.dart';
 import 'package:ecommerce_app/services/auth_services.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class ProductService {
-  static String server = 'http://192.168.2.101:3000/api';
+  static String server = 'http://10.50.10.135:3000/api';
   static var client = http.Client();
 
   static Future<List<Products>?> getProductsForCategories(
@@ -35,7 +38,8 @@ class ProductService {
       required tax,
       required totalOriginal,
       required datee2,
-      required List<ProductCart> products}) async {
+      required List<ProductCart> products,
+      required BuildContext context}) async {
     var token = await AuthServices().readToken();
 
     Map<String, dynamic> data = {
@@ -59,21 +63,25 @@ class ProductService {
         headers: {'Content-type': 'application/json', 'xx-token': '$token'},
         body: body);
 
-    if (resp.statusCode == 200)
+    if (resp.statusCode == 200) {
       return Response.fromJson(jsonDecode(resp.body));
+    }
+    if(resp.statusCode == 401){
+      LoginDialog.showLoginDialog(context, OderScreen.routeName);
+    }
     return null;
   }
 
   static Future<Response?> checkQuantityProduct(
       {required int uidProduct, required int quantity}) async {
-    var token = await AuthServices().readToken();
     Uri uri = Uri.parse(
         '$server/check-quantity-product?idProduct=$uidProduct&quantity=$quantity');
 
     var resp = await client.get(uri,
-        headers: {'Content-type': 'application/json', 'xx-token': '$token'});
-    if (resp.statusCode == 200)
+        headers: {'Content-type': 'application/json'});
+    if (resp.statusCode == 200) {
       return Response.fromJson(jsonDecode(resp.body));
+    }
     return null;
   }
 
@@ -98,7 +106,7 @@ class ProductService {
     return null;
   }
 
-  static Future<PuchasedProductsResponse> getPuchasedProducts() async {
+  static Future<PuchasedProductsResponse?> getPuchasedProducts(BuildContext context, String page) async {
     var token = await AuthServices().readToken();
 
     Uri uri = Uri.parse('$server/get-purchased-products');
@@ -110,7 +118,14 @@ class ProductService {
         'xx-token': '$token',
       },
     );
-    return PuchasedProductsResponse.fromJson(jsonDecode(response.body));
+    if(response.statusCode == 200) {
+      return PuchasedProductsResponse.fromJson(jsonDecode(response.body));
+    }
+    if(response.statusCode == 401){
+      LoginDialog.showLoginDialog(context, page);
+      return null;
+    }
+    return null;
   }
 
   static Future<List<Brands>?> getBrandsForSubcategory({int? id}) async {
@@ -136,7 +151,6 @@ class ProductService {
   }
 
   static Future<OrderDetail> getOrderDetail({required String id}) async {
-    var token = await AuthServices().readToken();
 
     Uri uri = Uri.parse('$server/get-detail-by-id/$id');
 
@@ -144,7 +158,6 @@ class ProductService {
       uri,
       headers: {
         'Content-type': 'application/json',
-        'xx-token': '$token',
       },
     );
     return OrderDetail.fromJson(jsonDecode(response.body));

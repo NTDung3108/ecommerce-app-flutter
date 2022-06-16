@@ -26,7 +26,7 @@ class ProductsScreen extends StatelessWidget{
       PriceRangeModel(range: 'Trên 20tr', isChecked: false),
     ];
     return Scaffold(
-      body: ProductsBody(),
+      body: ProductsBody(page: routeName,),
     );
   }
 }
