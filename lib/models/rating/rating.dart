@@ -1,70 +1,63 @@
 class RatingResponse {
+  RatingResponse({
+    this.resp,
+    this.msj,
+    this.ratings,
+  });
+
   bool? resp;
   String? msj;
   List<Rating>? ratings;
 
-  RatingResponse({this.resp, this.msj, this.ratings});
+  factory RatingResponse.fromJson(Map<String, dynamic> json) => RatingResponse(
+    resp: json["resp"],
+    msj: json["msj"],
+    ratings: List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
+  );
 
-  RatingResponse.fromJson(Map<String, dynamic> json) {
-    resp = json['resp'];
-    msj = json['msj'];
-    if (json['ratings'] != null) {
-      ratings = <Rating>[];
-      json['ratings'].forEach((v) {
-        ratings!.add(Rating.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['resp'] = resp;
-    data['msj'] = msj;
-    if (ratings != null) {
-      data['ratings'] =
-          ratings!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "resp": resp,
+    "msj": msj,
+    "ratings": List<dynamic>.from(ratings!.map((x) => x.toJson())),
+  };
 }
 
 class Rating {
-  int? id;
-  int? productId;
+  Rating({
+    this.personId,
+    this.firstName,
+    this.lastName,
+    this.image,
+    this.comment,
+    this.rating,
+    this.date,
+  });
+
   String? personId;
-  int? rating;
-  String? comment;
+  String? firstName;
+  String? lastName;
   String? image;
+  String? comment;
+  int? rating;
   String? date;
 
-  Rating(
-      {this.id,
-        this.productId,
-        this.personId,
-        this.rating,
-        this.comment,
-        this.image,
-        this.date});
+  factory Rating.fromJson(Map<String, dynamic> json) => Rating(
+    personId: json["person_id"],
+    firstName: json["firstName"],
+    lastName: json["lastName"],
+    image: json["image"],
+    comment: json["comment"],
+    rating: json["rating"],
+    date: json["date"],
+  );
 
-  Rating.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    productId = json['product_id'] ?? '';
-    personId = json['person_id'] ?? '';
-    rating = json['rating'] ?? '';
-    comment = json['comment'] ?? '';
-    image = json['image'] ?? '';
-    date = json['date'] ?? '';
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['product_id'] = productId;
-    data['person_id'] = personId;
-    data['rating'] = rating;
-    data['comment'] = comment;
-    data['image'] = image;
-    data['date'] = date;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+    "person_id": personId,
+    "firstName": firstName,
+    "lastName": lastName,
+    "image": image,
+    "comment": comment,
+    "rating": rating,
+    "date": date,
+  };
 }

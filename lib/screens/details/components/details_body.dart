@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/controllers/product_controller.dart';
+import 'package:ecommerce_app/controllers/rating_controller.dart';
 import 'package:ecommerce_app/models/product/product_card.dart';
 import 'package:ecommerce_app/screens/details/components/product_desciption.dart';
 import 'package:ecommerce_app/screens/details/components/product_images.dart';
@@ -21,10 +22,12 @@ class DetailBody extends StatefulWidget {
 
 class _DetailBodyState extends State<DetailBody> {
   final ProductController productController = Get.find();
+  final RatingController ratingController = Get.find();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    ratingController.getComment(productController.detail.value.idProduct!);
   }
   @override
   Widget build(BuildContext context) {
@@ -114,15 +117,33 @@ class _DetailBodyState extends State<DetailBody> {
                               ),
                               child: const Divider(),
                             ),
-                            SizedBox(
-                              width: double.infinity,
-                              height: getProportionateScreenHeight(400),
-                              child: ListView.builder(
-                                itemCount: 1,
-                                itemBuilder: (context, index) {
-                                  return Container();
-                                },
-                              ),
+                            GetX<RatingController>(
+                              builder: (value){
+                                return SizedBox(
+                                  width: double.infinity,
+                                  height: getProportionateScreenHeight(400),
+                                  child: ListView.builder(
+                                    itemCount: value.comments.value.length,
+                                    itemBuilder: (context, index) {
+                                      return Container(
+                                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                                        child: const Text('comment'),
+                                        // child: Row(
+                                        //   crossAxisAlignment: CrossAxisAlignment.start,
+                                        //   children: [
+                                        //     ClipOval(),
+                                        //     Expanded(child: Column(
+                                        //       children: [
+                                        //
+                                        //       ],
+                                        //     )),
+                                        //   ],
+                                        // ),
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
                             )
                           ],
                         ),

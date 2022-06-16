@@ -8,6 +8,6 @@ class AVGRating{
   AVGRating.fromJson(Map<String, dynamic> json) {
     resp = json['resp'] ?? false;
     msj = json['msj'] ?? '';
-    rating = json['rating'] ?? 0.0;
+    rating = json['rating']+0.0 ?? 0.0;
   }
 }

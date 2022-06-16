@@ -1,3 +1,4 @@
+import 'package:ecommerce_app/controllers/rating_controller.dart';
 import 'package:ecommerce_app/controllers/user_controller.dart';
 import 'package:ecommerce_app/dbhelper/db_helper.dart';
 import 'package:ecommerce_app/screens/first_page.dart';
@@ -17,6 +18,7 @@ void main() async {
   await Firebase.initializeApp().then((value) {
     Get.put(AuthController());
     Get.put(UserController());
+    Get.put(RatingController());
   });
   await DBHelper().database;
   runApp(MyApp());

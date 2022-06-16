@@ -2,21 +2,26 @@ import 'dart:developer';
 
 import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/constants.dart';
+import 'package:ecommerce_app/controllers/rating_controller.dart';
 import 'package:ecommerce_app/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 class CustomAppBar extends StatefulWidget {
-  final double? rating;
+  final int idProduct;
   final String page;
-  const CustomAppBar({Key? key, this.rating, required this.page}) : super(key: key);
+
+  const CustomAppBar({Key? key, required this.idProduct, required this.page})
+      : super(key: key);
 
   @override
   _CustomAppBar createState() => _CustomAppBar();
 }
 
 class _CustomAppBar extends State<CustomAppBar> {
+  final RatingController ratingController = Get.find();
   final TextEditingController commentController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   double? bottomHeight;
@@ -37,6 +42,7 @@ class _CustomAppBar extends State<CustomAppBar> {
         });
       }
     });
+    ratingController.getAVGRating(widget.idProduct);
   }
 
   @override
@@ -88,47 +94,6 @@ class _CustomAppBar extends State<CustomAppBar> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          // SizedBox(
-                          //   width: double.infinity,
-                          //   child: Row(
-                          //     children: [
-                          //       InkWell(
-                          //         onTap: () => Navigator.of(context).pop(),
-                          //         child: Container(
-                          //           padding: const EdgeInsets.symmetric(
-                          //               horizontal: 15, vertical: 12),
-                          //           child: Icon(
-                          //             Icons.close_outlined,
-                          //             color: Theme.of(context)
-                          //                 .textTheme
-                          //                 .bodyText2!
-                          //                 .color,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //       Container(
-                          //         alignment: Alignment.center,
-                          //         padding:
-                          //             const EdgeInsets.symmetric(vertical: 15),
-                          //         decoration: const BoxDecoration(
-                          //           color: Colors.transparent,
-                          //           borderRadius: BorderRadius.only(
-                          //             topLeft: Radius.circular(10),
-                          //             topRight: Radius.circular(10),
-                          //           ),
-                          //         ),
-                          //         child: const Text(
-                          //           'Rating',
-                          //           style: TextStyle(
-                          //               color: Colors.black,
-                          //               fontSize: 20,
-                          //               fontWeight: FontWeight.w500),
-                          //           textAlign: TextAlign.center,
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           Container(
                             alignment: Alignment.center,
                             padding: const EdgeInsets.symmetric(vertical: 15),
@@ -244,23 +209,27 @@ class _CustomAppBar extends State<CustomAppBar> {
                   },
                 );
               },
-              child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(14)),
-                child: Row(
-                  children: [
-                    Text(
-                      '${widget.rating!}',
-                      style: const TextStyle(
-                          fontSize: 14, fontWeight: FontWeight.w600),
+              child: GetX<RatingController>(
+                builder: (value) {
+                  return Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(14)),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${value.rating.value}',
+                          style: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w600),
+                        ),
+                        const SizedBox(width: 5),
+                        SvgPicture.asset("assets/icons/Star Icon.svg"),
+                      ],
                     ),
-                    const SizedBox(width: 5),
-                    SvgPicture.asset("assets/icons/Star Icon.svg"),
-                  ],
-                ),
+                  );
+                },
               ),
             )
           ],
