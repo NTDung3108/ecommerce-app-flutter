@@ -54,7 +54,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: Text(
-            '${widget.detail.nameProduct}',
+            '${widget.detail.nameProduct} (-${widget.detail.discount}%)',
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
@@ -75,32 +75,38 @@ class _ProductDescriptionState extends State<ProductDescription> {
               ),
               const Spacer(),
               Align(
-                  alignment: Alignment.centerRight,
-                  child: GestureDetector(
-                    onTap: () {
-                      favoritesController.addOrDeleteFavorites(widget.detail.idProduct!, context, DetailsScreen.routeName);
-                    },
-                    child: Obx(() => Container(
-                      padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-                      width: getProportionateScreenWidth(64),
-                      decoration: BoxDecoration(
-                        color: favoritesController.favorite.value
-                            ? const Color(0xFFFFE6E6)
-                            : const Color(0xFFF5F6F9),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
+                alignment: Alignment.centerRight,
+                child: GetBuilder<FavoritesController>(builder: (logic) {
+                  return GestureDetector(
+                      onTap: () {
+                        favoritesController.addOrDeleteFavorites(
+                            widget.detail.idProduct!,
+                            context,
+                            DetailsScreen.routeName);
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.all(getProportionateScreenWidth(15)),
+                        width: getProportionateScreenWidth(64),
+                        decoration: BoxDecoration(
+                          color: logic.favorite
+                              ? const Color(0xFFFFE6E6)
+                              : const Color(0xFFF5F6F9),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            bottomLeft: Radius.circular(20),
+                          ),
                         ),
-                      ),
-                      child: SvgPicture.asset(
-                        "assets/icons/Heart Icon_2.svg",
-                        color: favoritesController.favorite.value
-                            ? const Color(0xFFFF4848)
-                            : const Color(0xFFDBDEE4),
-                        height: getProportionateScreenWidth(16),
-                      ),
-                    )),
-                  )),
+                        child: SvgPicture.asset(
+                          "assets/icons/Heart Icon_2.svg",
+                          color: logic.favorite
+                              ? const Color(0xFFFF4848)
+                              : const Color(0xFFDBDEE4),
+                          height: getProportionateScreenWidth(16),
+                        ),
+                      ));
+                }),
+              ),
             ],
           ),
         ),

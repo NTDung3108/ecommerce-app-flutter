@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/controllers/home_controller.dart';
+import 'package:ecommerce_app/controllers/product_controller.dart';
+import 'package:ecommerce_app/controllers/subcategories_controller.dart';
 import 'package:ecommerce_app/screens/home/components/section_title.dart';
 import 'package:ecommerce_app/screens/more_special/more_special_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
@@ -10,7 +12,8 @@ import '../../products/products_screen.dart';
 class SpecialOffers extends StatelessWidget {
   SpecialOffers({Key? key}) : super(key: key);
   final HomeController homeController = Get.find();
-
+  final ProductController _productController = Get.find();
+  final SubCategoriesController _subCategoriesController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,12 +44,11 @@ class SpecialOffers extends StatelessWidget {
                   category: homeController.subcategoriesHome[index].name,
                   image: homeController.subcategoriesHome[index].picture,
                   press: () {
+                    _productController.fetchProducts(_subCategoriesController.subcategories[index].id);
+                    _productController.fetchBrands(_subCategoriesController.subcategories[index].id);
                     Navigator.pushNamed(
                         context,
                         ProductsScreen.routeName,
-                        arguments: ProductsArguments(
-                            subCategoryID: homeController.subcategoriesHome[index].id
-                        )
                     );
                   }),
             );
@@ -84,7 +86,7 @@ class SpecialOfferCard extends StatelessWidget {
                 AspectRatio(
                   aspectRatio: 2.3,
                   child: Image.network(
-                    'http://192.168.2.101:3000/$image',
+                    'http://10.50.10.135:3000/$image',
                     fit: BoxFit.cover,
                   ),
                 ),

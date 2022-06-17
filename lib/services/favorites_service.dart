@@ -10,11 +10,11 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class FavoritesService {
-  static String server = 'http://192.168.2.101:3000/api';
+  static String server = 'http://10.50.10.135:3000/api';
   static var client = http.Client();
   static FlutterSecureStorage secureStorage = const FlutterSecureStorage();
 
-  static Future<List<Products>?> getFavorites(BuildContext context, String page) async {
+  static Future<List<Products>> getFavorites(BuildContext context, String page) async {
     final token = await AuthServices().readToken();
 
     Uri uri = Uri.parse('$server/product-favorite-for-user');
@@ -24,7 +24,7 @@ class FavoritesService {
 
     if (respose.statusCode == 200) {
       var jsonString = respose.body;
-      return FavoritesProduct.fromJson(jsonDecode(jsonString)).favorites;
+      return FavoritesProduct.fromJson(jsonDecode(jsonString)).favorites ?? [];
     }
     if(respose.statusCode == 401){
       if(page != SignInScreen.routeName) {
@@ -35,20 +35,7 @@ class FavoritesService {
     return [];
   }
 
-  // static Future<Response?> getFavorites() async {
-  //   final token = await AuthServices().readToken();
-  //
-  //   Uri uri = Uri.parse('$server/product-favorite-for-user');
-  //
-  //   var respose = await client.get(uri,
-  //       headers: {'Accept': 'application/json', 'xx-token': '$token'});
-  //
-  //   if (respose.statusCode == 200) {
-  //     var jsonString = respose.body;
-  //     return FavoritesProduct.fromJson(jsonDecode(jsonString)).favorites;
-  //   }
-  //   return [];
-  // }
+
 
   static Future<Response?> addOrDeleteProductFavorite(
       {required int id, required BuildContext context, required String page}) async {

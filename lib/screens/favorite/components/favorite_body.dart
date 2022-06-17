@@ -23,24 +23,34 @@ class _FavoriteBody extends State<FavoriteBody> {
   final ProductController productController = Get.find();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    favoritesController.getFavoritesProduct(context, FavoriteScreen.routeName);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-      child: Obx(() => ListView.builder(
-            itemCount: favoritesController.favoritesProduct.length,
+      child: GetBuilder<FavoritesController>(
+        builder: (logic) {
+          if (logic.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView.builder(
+            itemCount: logic.favoritesProduct.length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
                   log('next to product');
                   productController.productDetail(
-                      favoritesController.favoritesProduct[index].idProduct!,
-                      context, FavoriteScreen.routeName);
-                  // Navigator.pushNamed(
-                  //   context,
-                  //   DetailsScreen.routeName,
-                  // );
-                  // arguments: ProductDetailsArguments(products: favoritesController.favoritesProduct[index]));
+                      logic.favoritesProduct[index].idProduct!,
+                      context,
+                      FavoriteScreen.routeName);
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
@@ -58,7 +68,7 @@ class _FavoriteBody extends State<FavoriteBody> {
                                 color: const Color(0xFFF5F6F9),
                                 borderRadius: BorderRadius.circular(15)),
                             child: Image.network(
-                                'http://192.168.2.101:3000/${favoritesController.favoritesProduct[index].picture![0]}'),
+                                'http://10.50.10.135:3000/${logic.favoritesProduct[index].picture![0]}'),
                           ),
                         ),
                       ),
@@ -73,7 +83,7 @@ class _FavoriteBody extends State<FavoriteBody> {
                             SizedBox(
                               width: getProportionateScreenWidth(200),
                               child: Text(
-                                '${favoritesController.favoritesProduct[index].nameProduct}',
+                                '${logic.favoritesProduct[index].nameProduct}',
                                 style: const TextStyle(
                                     color: Colors.black, fontSize: 16),
                                 maxLines: 2,
@@ -83,8 +93,8 @@ class _FavoriteBody extends State<FavoriteBody> {
                               borderRadius: BorderRadius.circular(50),
                               onTap: () {
                                 log('next to favorite');
-                                favoritesController.addOrDeleteFavorites(
-                                    favoritesController.favoritesProduct[index].idProduct!,
+                                logic.addOrDeleteFavorites(
+                                    logic.favoritesProduct[index].idProduct!,
                                     context,
                                     FavoriteScreen.routeName);
                               },
@@ -109,7 +119,9 @@ class _FavoriteBody extends State<FavoriteBody> {
                 ),
               );
             },
-          )),
+          );
+        },
+      ),
     );
   }
 }

@@ -21,7 +21,7 @@ class DetailsScreen extends StatelessWidget {
           page: agrs.page,
         ),
       ),
-      body: const DetailBody(),
+      body: DetailBody(),
     );
   }
 }

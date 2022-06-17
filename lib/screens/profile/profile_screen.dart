@@ -16,10 +16,13 @@ class ProfileScreen extends StatelessWidget {
     userController.getUserInfo(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Profile',
-          style: TextStyle(color: Colors.black),
+        title: const Center(
+          child: Text(
+            'Profile',
+            style: TextStyle(color: Colors.black),
+          ),
         ),
+        leading: const SizedBox(),
       ),
       body: ProfileBody(),
       bottomNavigationBar:

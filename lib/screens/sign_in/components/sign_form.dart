@@ -7,6 +7,7 @@ import 'package:ecommerce_app/constants.dart';
 import 'package:ecommerce_app/controllers/auth_controller.dart';
 import 'package:ecommerce_app/controllers/favorite_controller.dart';
 import 'package:ecommerce_app/helper/keyboard.dart';
+import 'package:ecommerce_app/screens/details/details_screen.dart';
 import 'package:ecommerce_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:ecommerce_app/screens/sign_in/sign_in_screen.dart';
 import 'package:ecommerce_app/size_config.dart';
@@ -100,7 +101,11 @@ class _SignFormState extends State<SignForm> {
                 var auth = await authController.login(phone, password, context);
                 if (auth) {
                   favoritesController.getFavoritesProduct(context, SignInScreen.routeName);
-                  Navigator.pushNamed(context, widget.page);
+                  if(widget.page == DetailsScreen.routeName){
+                    Navigator.pushNamed(context, widget.page, arguments: DetailPageArguments(page: HomeScreen.routeName));
+                  }else{
+                    Navigator.pushNamed(context, widget.page);
+                  }
                 } else {
                   addError(error: 'Wrong Credentials');
                 }

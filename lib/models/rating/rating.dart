@@ -12,7 +12,7 @@ class RatingResponse {
   factory RatingResponse.fromJson(Map<String, dynamic> json) => RatingResponse(
     resp: json["resp"],
     msj: json["msj"],
-    ratings: List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
+    ratings:json["ratings"] == null ? [] : List<Rating>.from(json["ratings"].map((x) => Rating.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {

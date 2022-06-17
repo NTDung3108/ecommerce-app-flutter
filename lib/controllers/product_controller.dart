@@ -72,34 +72,27 @@ class ProductController extends GetxController {
   }
 
   void addProductToCart(ProductCart productCard, BuildContext context) async {
-    // await DBHelper().deleteAllTasks();
     var _product = await DBHelper().queryRows(productCard.uidProduct!);
-    var _value = await AuthServices().hasToken();
-    if (_value) {
-      if (_product.isEmpty == true) {
-        productCarts.add(productCard);
-        await DBHelper().insertCart(productCard);
-        const snackBar = SnackBar(
-          content: Text('The product has been added to cart'),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      } else {
-        const snackBar = SnackBar(
-          content: Text('Products already in the cart'),
-        );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      }
+
+    if (_product.isEmpty == true) {
+      productCarts.add(productCard);
+      await DBHelper().insertCart(productCard);
+      const snackBar = SnackBar(
+        content: Text('The product has been added to cart'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       const snackBar = SnackBar(
-        content: Text('You need to login to use this function'),
+        content: Text('Products already in the cart'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
   void getAllCart() async {
+    // List<ProductCart> list = [];
     final List<Map<String, dynamic>> carts = await DBHelper().queryAllRows();
-    productCarts
+    productCarts.value
         .assignAll(carts.map((data) => ProductCart.fromMap(data)).toList());
   }
 
@@ -117,12 +110,11 @@ class ProductController extends GetxController {
           totalOriginal: totalOriginal,
           datee2: DateFormat('yyyy-MM-dd hh:mm:ss').format(DateTime.now()),
           products: productCarts,
-      context: context);
+          context: context);
 
       if (resp!.resp!) {
-
         var update = await updateQuantity();
-        if(update){
+        if (update) {
           productCarts.value = [];
           await DBHelper().deleteAllTasks();
           const snackBar = SnackBar(
@@ -130,7 +122,7 @@ class ProductController extends GetxController {
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           Navigator.pop(context);
-        }else{
+        } else {
           log('false');
         }
       } else {
@@ -152,12 +144,11 @@ class ProductController extends GetxController {
             quantity: productCarts[i].quantity!);
         if (resp!.resp!) {
           _resp = true;
-        }else{
+        } else {
           _resp = false;
           return false;
         }
       }
-
     } catch (e) {
       return false;
     }
@@ -210,9 +201,10 @@ class ProductController extends GetxController {
   }
 
   void deleteProductToCart(int index) async {
-    productCarts.removeAt(index);
-    productCarts.refresh();
-    await DBHelper().delete(productCarts[index].uidProduct!);
+    int d = await DBHelper().delete(productCarts[index].uidProduct!);
+    if (d == 1) {
+      productCarts.removeAt(index);
+    }
   }
 
   Future<void> plusQuatityProduct(int index) async {
@@ -231,8 +223,10 @@ class ProductController extends GetxController {
       await DBHelper().update(
           productCarts[index].uidProduct!, productCarts[index].quantity!);
     } else {
-      productCarts.removeAt(index);
-      await DBHelper().delete(productCarts[index].uidProduct!);
+      int d = await DBHelper().delete(productCarts[index].uidProduct!);
+      if (d == 1) {
+        productCarts.removeAt(index);
+      }
     }
   }
 
@@ -240,7 +234,7 @@ class ProductController extends GetxController {
     var value = await AuthServices().hasToken();
     if (value) {
       var resp = await ProductService.getPuchasedProducts(context, page);
-      if (resp!.resp! ) {
+      if (resp!.resp!) {
         log(resp.msj!);
         orders.value = resp.orderBuy!;
       } else {
@@ -291,11 +285,8 @@ class ProductController extends GetxController {
       if (resp!.resp!) {
         detail.value = resp.detail!;
         detail.refresh();
-        Navigator.pushNamed(
-          context,
-          DetailsScreen.routeName,
-          arguments: DetailPageArguments(page: page)
-        );
+        Navigator.pushNamed(context, DetailsScreen.routeName,
+            arguments: DetailPageArguments(page: page));
       }
     } catch (e) {
       throw Exception(e);

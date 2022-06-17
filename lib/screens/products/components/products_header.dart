@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:ecommerce_app/controllers/product_controller.dart';
+import 'package:ecommerce_app/screens/subcategory/sub_category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -30,7 +31,7 @@ class ProductsHeader extends StatelessWidget{
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.zero
                     ),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => Navigator.pushNamed(context, SubCategory.routeName),
                     child: SvgPicture.asset(
                       "assets/icons/Back ICon.svg",
                       height: 20,

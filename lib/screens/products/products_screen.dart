@@ -12,11 +12,6 @@ class ProductsScreen extends StatelessWidget{
   final ProductController productController = Get.find();
   @override
   Widget build(BuildContext context) {
-    final ProductsArguments agrs =
-    ModalRoute.of(context)!.settings.arguments as ProductsArguments;
-
-    productController.fetchProducts(agrs.subCategoryID);
-    productController.fetchBrands(agrs.subCategoryID);
     priceRange = [
       PriceRangeModel(range: 'Dưới 1tr', isChecked: false),
       PriceRangeModel(range: 'Từ 1tr-5tr', isChecked: false),
@@ -29,10 +24,4 @@ class ProductsScreen extends StatelessWidget{
       body: ProductsBody(page: routeName,),
     );
   }
-}
-
-class ProductsArguments {
-  final int? subCategoryID;
-
-  ProductsArguments({this.subCategoryID});
 }

@@ -32,9 +32,7 @@ class _CartBody extends State<CartBody> {
                         direction: DismissDirection.endToStart,
                         onDismissed: (direction) {
                           if (direction == DismissDirection.endToStart) {
-                            setState(() {
-                              productController.deleteProductToCart(index);
-                            });
+                            productController.deleteProductToCart(index);
                           }
                         },
                         background: Container(

@@ -1,3 +1,5 @@
+import 'package:ecommerce_app/controllers/product_controller.dart';
+import 'package:ecommerce_app/controllers/subcategories_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +11,8 @@ import 'components/more_special_card.dart';
 class MoreSpecialScreen extends StatelessWidget {
   static String routeName = "/morespecial";
   final HomeController homeController = Get.find();
+  final ProductController _productController = Get.find();
+  final SubCategoriesController _subCategoriesController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +29,11 @@ class MoreSpecialScreen extends StatelessWidget {
                 category: homeController.subcategoriesHome[index].name,
                 image: homeController.subcategoriesHome[index].picture,
                 press: () {
+                  _productController.fetchProducts(_subCategoriesController.subcategories[index].id);
+                  _productController.fetchBrands(_subCategoriesController.subcategories[index].id);
                   Navigator.pushNamed(
                       context,
-                      ProductsScreen.routeName,
-                      arguments: ProductsArguments(
-                          subCategoryID: homeController.subcategoriesHome[index].id
-                      )
+                      ProductsScreen.routeName
                   );
                 }),
           );

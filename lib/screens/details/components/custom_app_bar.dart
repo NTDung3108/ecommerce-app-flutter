@@ -4,6 +4,7 @@ import 'package:ecommerce_app/components/default_button.dart';
 import 'package:ecommerce_app/constants.dart';
 import 'package:ecommerce_app/controllers/rating_controller.dart';
 import 'package:ecommerce_app/size_config.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,6 +26,7 @@ class _CustomAppBar extends State<CustomAppBar> {
   final TextEditingController commentController = TextEditingController();
   final FocusNode _focusNode = FocusNode();
   double? bottomHeight;
+  double rating = 0.0;
 
   @override
   void initState() {
@@ -37,7 +39,7 @@ class _CustomAppBar extends State<CustomAppBar> {
         });
       } else {
         setState(() {
-          bottomHeight = MediaQuery.of(context).size.height * 1 / 2;
+          bottomHeight = MediaQuery.of(context).size.height * 2 / 3;
           hideKeyboard(context);
         });
       }
@@ -84,121 +86,110 @@ class _CustomAppBar extends State<CustomAppBar> {
                       topLeft: Radius.circular(10),
                     ),
                   ),
-                  enableDrag: false,
                   isScrollControlled: true,
                   builder: (context) {
-                    return Container(
-                      height: bottomHeight ??
-                          MediaQuery.of(context).size.height * 1 / 2,
-                      margin: const EdgeInsets.only(top: 10),
+                    return Padding(
+                      // height: MediaQuery.of(context).size.height*2/3,
+                      // margin: const EdgeInsets.only(top: 10),
+                      padding: MediaQuery.of(context).viewInsets,
                       child: Column(
-                        mainAxisSize: MainAxisSize.max,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Container(
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            decoration: const BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                              ),
-                            ),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                InkWell(
-                                  onTap: () => Navigator.of(context).pop(),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15, vertical: 12),
-                                    child: Icon(
-                                      Icons.close_outlined,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .color,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal:
-                                          getProportionateScreenWidth(100)),
-                                  child: const Text(
-                                    'Rating',
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const Divider(height: 1),
-                          Expanded(
-                            child: SafeArea(
+                          SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
                               child: Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Expanded(
-                                    child: SingleChildScrollView(
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(16),
-                                        child: Column(
-                                          children: [
-                                            RatingBar.builder(
-                                                initialRating: 1,
-                                                minRating: 1,
-                                                direction: Axis.horizontal,
-                                                allowHalfRating: true,
-                                                itemCount: 5,
-                                                itemPadding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        getProportionateScreenWidth(
-                                                            4)),
-                                                itemBuilder: (context, _) =>
-                                                    const Icon(
-                                                      Icons.star,
-                                                      color: Colors.amber,
-                                                    ),
-                                                onRatingUpdate: (rating) {
-                                                  log('$rating');
-                                                }),
-                                            const SizedBox(height: 20),
-                                            TextFormField(
-                                              controller: commentController,
-                                              focusNode: _focusNode,
-                                              decoration: const InputDecoration(
-                                                labelText: 'Comment',
-                                              ),
-                                              maxLength: 200,
-                                              maxLines: 4,
-                                              keyboardType:
-                                                  TextInputType.multiline,
-                                            ),
-                                          ],
-                                        ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    decoration: const BoxDecoration(
+                                      color: Colors.transparent,
+                                      borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
                                       ),
                                     ),
-                                  ),
-                                  const SizedBox(height: 20),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: DefaultButton(
-                                      text: 'Send Comment',
-                                      press: () {
-                                        hideKeyboard(context);
-                                      },
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () =>
+                                              Navigator.of(context).pop(),
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 15, vertical: 12),
+                                            child: Icon(
+                                              Icons.close_outlined,
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText2!
+                                                  .color,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal:
+                                                  getProportionateScreenWidth(
+                                                      100)),
+                                          child: const Text(
+                                            'Rating',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.w500),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                  const SizedBox(height: 6),
-                                  SizedBox(
-                                      height: MediaQuery.of(context)
-                                          .viewInsets
-                                          .bottom),
+                                  const Divider(height: 1),
+                                  RatingBar.builder(
+                                      initialRating: 1,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemPadding: EdgeInsets.symmetric(
+                                          horizontal:
+                                              getProportionateScreenWidth(4)),
+                                      itemBuilder: (context, _) => const Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                          ),
+                                      onRatingUpdate: (value) {
+                                        rating = value;
+                                      }),
+                                  const SizedBox(height: 20),
+                                  TextFormField(
+                                    controller: commentController,
+                                    focusNode: _focusNode,
+                                    decoration: const InputDecoration(
+                                      labelText: 'Comment',
+                                      enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                                        borderSide: BorderSide(width: 1,color: Colors.black),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.all(Radius.circular(4)),
+                                        borderSide: BorderSide(width: 1,color: Colors.blue),
+                                      ),
+
+                                    ),
+                                    maxLength: 200,
+                                    maxLines: 4,
+                                    keyboardType: TextInputType.multiline,
+                                  ),
+                                  DefaultButton(
+                                    text: 'Send Comment',
+                                    press: () {
+                                      ratingController.newComment(context: context, productId: widget.idProduct, rating: rating, comment: commentController.text );
+                                      hideKeyboard(context);
+                                    },
+                                  ),
                                 ],
                               ),
                             ),

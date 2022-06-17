@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 class RatingController extends GetxController {
   var rating = 0.0.obs;
-  var comments = <Rating>[].obs;
+  var comments = <Rating>[];
 
   void getAVGRating(int idProduct) async {
     try {
@@ -17,27 +17,27 @@ class RatingController extends GetxController {
 
   void getComment(int idProduct) async {
     try {
+      comments.clear();
       var res = await RattingService.getRating(id: idProduct);
-      if (res.isNotEmpty == true) comments.value = res;
+      if (res.isNotEmpty == true) {
+        comments.addAll(res);
+      }
     } catch (e) {
       throw Exception(e);
     }
+    update();
   }
 
   void newComment(
-      {String? productId,
-      String? personId,
-      String? rating,
+      {int? productId,
+      double? rating,
       String? comment,
-      String? date,
       required BuildContext context}) async {
     try {
       var resp = await RattingService.addNewRating(
           productId: productId,
-          personId: personId,
           rating: rating,
           comment: comment,
-          date: date,
           context: context);
       if(resp!.resp!){
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

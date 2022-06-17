@@ -1,19 +1,18 @@
 import 'package:ecommerce_app/components/default_button.dart';
+import 'package:ecommerce_app/constants.dart';
 import 'package:ecommerce_app/controllers/product_controller.dart';
 import 'package:ecommerce_app/controllers/rating_controller.dart';
 import 'package:ecommerce_app/models/product/product_card.dart';
+import 'package:ecommerce_app/models/rating/rating.dart';
 import 'package:ecommerce_app/screens/details/components/product_desciption.dart';
 import 'package:ecommerce_app/screens/details/components/product_images.dart';
 import 'package:ecommerce_app/screens/details/components/top_rounded_container.dart';
 import 'package:ecommerce_app/size_config.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../constants.dart';
 class DetailBody extends StatefulWidget {
-
   const DetailBody({Key? key}) : super(key: key);
 
   @override
@@ -23,12 +22,13 @@ class DetailBody extends StatefulWidget {
 class _DetailBodyState extends State<DetailBody> {
   final ProductController productController = Get.find();
   final RatingController ratingController = Get.find();
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     ratingController.getComment(productController.detail.value.idProduct!);
   }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -51,7 +51,7 @@ class _DetailBodyState extends State<DetailBody> {
                       child: Text(
                         'SL: ${productController.detail.value.quantily}',
                         style:
-                        const TextStyle(color: Colors.black, fontSize: 24),
+                            const TextStyle(color: Colors.black, fontSize: 24),
                       ),
                     ),
                     TopRoundedContainer(
@@ -65,8 +65,9 @@ class _DetailBodyState extends State<DetailBody> {
                           children: [
                             Center(
                               child: Text(
-                                NumberFormat('###,###', 'en_US')
-                                    .format(productController.detail.value.price ?? 0) +
+                                NumberFormat('###,###', 'en_US').format(
+                                        productController.detail.value.price ??
+                                            0) +
                                     ' VND',
                                 style: TextStyle(
                                     fontSize: getProportionateScreenWidth(24),
@@ -85,12 +86,18 @@ class _DetailBodyState extends State<DetailBody> {
                                 text: 'Add To Cart',
                                 press: () {
                                   var productCard = ProductCart(
-                                      uidProduct: productController.detail.value.idProduct,
-                                      image: productController.detail.value.picture![0],
-                                      name: '${productController.detail.value.nameProduct}',
+                                      uidProduct: productController
+                                          .detail.value.idProduct,
+                                      image: productController
+                                          .detail.value.picture![0],
+                                      name:
+                                          '${productController.detail.value.nameProduct}',
                                       quantity: 1,
-                                      price: productController.detail.value.price!,
-                                      importPrice: productController.detail.value.importPrice! * 1);
+                                      price:
+                                          productController.detail.value.price!,
+                                      importPrice: productController
+                                              .detail.value.importPrice! *
+                                          1);
                                   productController.addProductToCart(
                                       productCard, context);
                                 },
@@ -117,31 +124,28 @@ class _DetailBodyState extends State<DetailBody> {
                               ),
                               child: const Divider(),
                             ),
-                            GetX<RatingController>(
-                              builder: (value){
-                                return SizedBox(
+                            GetBuilder<RatingController>(
+                              assignId: true,
+                              builder: (logic) {
+                                return Container(
                                   width: double.infinity,
                                   height: getProportionateScreenHeight(400),
-                                  child: ListView.builder(
-                                    itemCount: value.comments.value.length,
-                                    itemBuilder: (context, index) {
-                                      return Container(
-                                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                                        child: const Text('comment'),
-                                        // child: Row(
-                                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                                        //   children: [
-                                        //     ClipOval(),
-                                        //     Expanded(child: Column(
-                                        //       children: [
-                                        //
-                                        //       ],
-                                        //     )),
-                                        //   ],
-                                        // ),
-                                      );
-                                    },
-                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal:
+                                          getProportionateScreenWidth(15),
+                                      vertical: getProportionateScreenWidth(8)),
+                                  color: Colors.grey.withOpacity(0.1),
+                                  child: logic.comments.isNotEmpty
+                                      ? ListView.builder(
+                                          itemCount: logic.comments.length,
+                                          itemBuilder: (context, index) {
+                                            return commentCard(
+                                                logic.comments[index]);
+                                          },
+                                        )
+                                      : const Center(
+                                          child: Text('No Comment'),
+                                        ),
                                 );
                               },
                             )
@@ -156,6 +160,74 @@ class _DetailBodyState extends State<DetailBody> {
           ),
         )
       ],
+    );
+  }
+
+  Widget commentCard(Rating rating) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10), color: Colors.white),
+      child: SizedBox(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ClipOval(
+              child: Image.network(
+                'http://10.50.10.135:3000/${rating.image}',
+                height: getProportionateScreenWidth(40),
+                width: getProportionateScreenWidth(40),
+              ),
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: getProportionateScreenWidth(40),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              '${rating.firstName} ${rating.lastName}',
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 16),
+                            ),
+                            SizedBox(
+                              width: getProportionateScreenWidth(10),
+                            ),
+                            Text(
+                              '${rating.rating}',
+                              style: const TextStyle(color: Colors.black),
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                            ),
+                          ],
+                        ),
+                        Text('${rating.date}'),
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    height: 2,
+                  ),
+                  Text(
+                    '${rating.comment}',
+                    style: const TextStyle(color: Colors.black, fontSize: 14),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

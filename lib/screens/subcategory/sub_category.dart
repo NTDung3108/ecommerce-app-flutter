@@ -1,21 +1,22 @@
 import 'package:ecommerce_app/controllers/subcategories_controller.dart';
+import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:ecommerce_app/screens/products/products_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../constants.dart';
+import '../../controllers/product_controller.dart';
 import '../../size_config.dart';
 
 class SubCategory extends StatelessWidget{
   static String routeName = "/subcategory";
   final SubCategoriesController subCategoriesController = Get.put(SubCategoriesController());
+  final ProductController productController = Get.find();
+
   @override
   Widget build(BuildContext context) {
-    final SubCategoryArguments args =
-        ModalRoute.of(context)!.settings.arguments as SubCategoryArguments;
-    subCategoriesController.fetchCategories(args.categoryID!);
+    // subCategoriesController.fetchCategories(args.categoryID!);
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
@@ -42,7 +43,7 @@ class SubCategory extends StatelessWidget{
                         padding: EdgeInsets.all(10),
                         child: Column(
                           children: [
-                            Image.network('http://192.168.2.101:3000/${subCategoriesController.subcategories[index].icon}'),
+                            Image.network('http://10.50.10.135:3000/${subCategoriesController.subcategories[index].icon}'),
                             SizedBox(
                               height: getProportionateScreenWidth(10),
                             ),
@@ -58,13 +59,14 @@ class SubCategory extends StatelessWidget{
                         ),
                       )
                   ),
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    ProductsScreen.routeName,
-                    arguments: ProductsArguments(
-                        subCategoryID: subCategoriesController.subcategories[index].id
-                    )
-                  )
+                  onTap: () {
+                    productController.fetchProducts(subCategoriesController.subcategories[index].id);
+                    productController.fetchBrands(subCategoriesController.subcategories[index].id);
+                    Navigator.pushNamed(
+                        context,
+                        ProductsScreen.routeName
+                    );
+                  }
                 );
               }
           );
@@ -72,12 +74,6 @@ class SubCategory extends StatelessWidget{
       )
     );
   }
-}
-
-class SubCategoryArguments {
-  final int? categoryID;
-
-  SubCategoryArguments({required this.categoryID});
 }
 
 class CustomSubCategoryAppBar extends StatelessWidget{
@@ -97,7 +93,10 @@ class CustomSubCategoryAppBar extends StatelessWidget{
                   backgroundColor: Colors.white,
                   padding: EdgeInsets.zero
               ),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => Navigator.pushNamed(
+                  context,
+                  HomeScreen.routeName
+              ),
               child: SvgPicture.asset(
                 "assets/icons/Back ICon.svg",
                 height: 20,

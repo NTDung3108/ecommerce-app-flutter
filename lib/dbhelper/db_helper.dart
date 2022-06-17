@@ -1,5 +1,4 @@
 import 'package:ecommerce_app/models/product/product_card.dart';
-import 'package:ecommerce_app/screens/cart/components/cart_card.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
