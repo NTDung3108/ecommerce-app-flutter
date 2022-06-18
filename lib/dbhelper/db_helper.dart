@@ -52,12 +52,14 @@ class DBHelper {
 
   Future<List<Map<String, dynamic>>> queryRows(int idProduct) async {
     Database? db = await DBHelper._database;
-    return await db!.rawQuery('SELECT*FROM $_tasks_table WHERE uidProduct=$idProduct');
+    return await db!
+        .rawQuery('SELECT*FROM $_tasks_table WHERE uidProduct=$idProduct');
   }
 
   Future<int> delete(int id) async {
     Database? db = await DBHelper._database;
-    return await db!.rawDelete('DELETE FROM $_tasks_table WHERE uidProduct = ?',[id]);
+    return await db!
+        .rawDelete('DELETE FROM $_tasks_table WHERE uidProduct = ?', [id]);
   }
 
   Future<int> deleteAllTasks() async {
@@ -66,10 +68,8 @@ class DBHelper {
   }
 
   Future<int> update(int id, int quantity) async {
-    return await _database!.rawUpdate('''
-    UPDATE $_tasks_table
-    SET quantity = ?, amount = ?
-    WHERE uidProduct = ?
-    ''', [quantity,  id]);
+    return await _database!.rawUpdate(
+        'UPDATE $_tasks_table SET quantity = ? WHERE uidProduct = ?',
+        [quantity, id]);
   }
 }

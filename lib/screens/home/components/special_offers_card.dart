@@ -86,7 +86,7 @@ class SpecialOfferCard extends StatelessWidget {
                 AspectRatio(
                   aspectRatio: 2.3,
                   child: Image.network(
-                    'http://10.50.10.135:3000/$image',
+                    'http://192.168.2.101:3000/$image',
                     fit: BoxFit.cover,
                   ),
                 ),

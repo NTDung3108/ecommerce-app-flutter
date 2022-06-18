@@ -13,7 +13,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class ProductService {
-  static String server = 'http://10.50.10.135:3000/api';
+  static String server = 'http://192.168.2.101:3000/api';
   static var client = http.Client();
 
   static Future<List<Products>?> getProductsForCategories(
@@ -151,13 +151,14 @@ class ProductService {
   }
 
   static Future<OrderDetail> getOrderDetail({required String id}) async {
-
+    var token = await AuthServices().readToken();
     Uri uri = Uri.parse('$server/get-detail-by-id/$id');
 
     var response = await client.get(
       uri,
       headers: {
         'Content-type': 'application/json',
+        'xx-token': '$token',
       },
     );
     return OrderDetail.fromJson(jsonDecode(response.body));

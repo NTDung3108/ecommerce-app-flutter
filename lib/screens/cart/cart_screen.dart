@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/controllers/product_controller.dart';
 import 'package:ecommerce_app/screens/cart/components/cart_body.dart';
 import 'package:ecommerce_app/screens/cart/components/check_out_card.dart';
+import 'package:ecommerce_app/screens/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,6 +34,12 @@ class CartScreen extends StatelessWidget {
               ),
             )
           ],
+        ),
+      ),
+      leading: InkWell(
+        onTap: () => Navigator.pushNamed(context, HomeScreen.routeName),
+        child: ClipOval(
+          child: Icon(Icons.arrow_back_ios),
         ),
       ),
     );

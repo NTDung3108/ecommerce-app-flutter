@@ -8,6 +8,7 @@ import 'package:ecommerce_app/models/product/order_detail.dart';
 import 'package:ecommerce_app/models/product/product_card.dart';
 import 'package:ecommerce_app/models/product/product_detail.dart';
 import 'package:ecommerce_app/models/product/puchased_products_response.dart';
+import 'package:ecommerce_app/screens/cart/cart_screen.dart';
 import 'package:ecommerce_app/services/auth_services.dart';
 import 'package:ecommerce_app/services/product_service.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ class ProductController extends GetxController {
             content: Text('The product has been order'),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          Navigator.pop(context);
+          Navigator.pushNamed(context, CartScreen.routeName);
         } else {
           log('false');
         }
