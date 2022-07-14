@@ -15,7 +15,7 @@ class PhoneVerificationBody extends StatelessWidget {
           child: Column(children: [
             SizedBox(height: SizeConfig.screenHeight * 0.05),
             Text(
-              "Verify your phone number",
+              "Xác thực số điện thoại của bạn",
               style: headingStyle,
             ),
             SizedBox(height: SizeConfig.screenHeight * 0.1),

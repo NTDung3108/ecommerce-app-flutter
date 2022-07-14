@@ -164,7 +164,7 @@ class _OTPForm extends State<OTPForm> {
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.15),
           DefaultButton(
-            text: "Continue",
+            text: "Tiếp tục",
             press: () {
               String smsCode = pin0.text +
                   pin1.text +

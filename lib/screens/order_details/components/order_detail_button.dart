@@ -35,7 +35,7 @@ class OrderDetailButton extends StatelessWidget {
             );
           },
           child: Text(
-            'Compelete',
+            'Hoàn thành',
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(18), color: Colors.white),
           ),
@@ -60,7 +60,7 @@ class OrderDetailButton extends StatelessWidget {
             );
           },
           child: Text(
-            'Cancel',
+            'Hủy',
             style: TextStyle(
                 fontSize: getProportionateScreenWidth(18), color: Colors.white),
           ),
@@ -110,7 +110,7 @@ class _ReasonDialog extends State<ReasonDialog> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return AlertDialog(
-      title: const Text('Cancellation reason'),
+      title: const Text('Lý do hủy'),
       content: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -128,7 +128,7 @@ class _ReasonDialog extends State<ReasonDialog> {
         TextButton(
           onPressed: () =>
               Navigator.pop(context, 'Cancel'),
-          child: const Text('Cancel'),
+          child: const Text('Hủy'),
         ),
         TextButton(
           onPressed: () {
@@ -143,7 +143,7 @@ class _ReasonDialog extends State<ReasonDialog> {
               Navigator.pop(context);
             }
           },
-          child: const Text('Ok'),
+          child: const Text('Đồng ý'),
         )
       ],
     );
@@ -156,20 +156,20 @@ class _ReasonDialog extends State<ReasonDialog> {
       keyboardType: TextInputType.multiline,
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: 'Reason is not null');
+          removeError(error: 'Lý do không được để trống');
         }
         return;
       },
       validator: (value) {
         if (value!.isEmpty) {
-          addError(error: 'Reason is not null');
+          addError(error: 'Lý do không được để trống');
           return "";
         }
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Note",
-        hintText: "Enter your Note",
+        labelText: "Lý do",
+        hintText: "Nhập lý do của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

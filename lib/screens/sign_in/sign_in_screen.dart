@@ -8,7 +8,7 @@ class SignInScreen extends StatelessWidget {
     final SignInArguments agrs = ModalRoute.of(context)!.settings.arguments as SignInArguments;
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign In'),
+        title: const Text('Đăng nhập'),
         leading: const SizedBox(),
       ),
       body: SingInBody(page: agrs.page,),

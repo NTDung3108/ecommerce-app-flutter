@@ -10,7 +10,7 @@ class PhoneVerification extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Phone Verification"),
+        title: const Text("Xác thực số điện thoại"),
       ),
       body: PhoneVerificationBody(),
     );

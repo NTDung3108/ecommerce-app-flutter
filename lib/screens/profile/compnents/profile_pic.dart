@@ -25,7 +25,7 @@ class ProfilePic extends StatelessWidget {
             if (userController.information.value.image != null) {
               return CircleAvatar(
                 backgroundImage: NetworkImage(
-                    'http://192.168.2.101:3000/${userController.information.value.image}'),
+                    'http://192.168.78.19:3000/${userController.information.value.image}'),
               );
             }
             return const CircleAvatar(
@@ -80,7 +80,7 @@ class ProfilePic extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 25.0, top: 25.0),
-                child: Text('Change profile picture',
+                child: Text('Thay đổi ảnh',
                     style: GoogleFonts.getFont('Roboto',
                         fontSize: 20,
                         color: Colors.black,
@@ -104,7 +104,7 @@ class ProfilePic extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Select an image',
+                          'Chọn 1 ảnh',
                           style: GoogleFonts.getFont('Roboto',
                               color: Colors.black, fontSize: 18),
                         ),
@@ -127,7 +127,7 @@ class ProfilePic extends StatelessWidget {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Take a picture',
+                          'Chụp ảnh',
                           style: GoogleFonts.getFont('Roboto',
                               color: Colors.black, fontSize: 18),
                         ),

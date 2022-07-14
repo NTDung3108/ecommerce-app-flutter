@@ -90,10 +90,10 @@ class TimeLine extends StatelessWidget {
   }
   String title(int status) {
     if (status == 1) {
-      return 'Order\nShipped';
+      return 'Đang giao hàng';
     } else if (status == 2) {
-      return 'Compelete';
+      return 'Hoàn Thành';
     }
-    return 'Order\nProcessed';
+    return 'Đang xử lý';
   }
 }

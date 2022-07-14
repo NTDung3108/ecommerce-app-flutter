@@ -47,7 +47,7 @@ class _SearchBody extends State<SearchBody> {
               children: [
                 SizedBox(height: getProportionateScreenHeight(20)),
                 const Text(
-                  'Categories',
+                  'Danh mục',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,
@@ -58,7 +58,7 @@ class _SearchBody extends State<SearchBody> {
                 ListCategory(),
                 SizedBox(height: getProportionateScreenHeight(20)),
                 const Text(
-                  'Products',
+                  'Sản phẩm',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 20,

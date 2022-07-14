@@ -174,7 +174,7 @@ class _DetailBodyState extends State<DetailBody> {
           children: [
             ClipOval(
               child: Image.network(
-                'http://192.168.2.101:3000/${rating.image}',
+                'http://192.168.78.19:3000/${rating.image}',
                 height: getProportionateScreenWidth(40),
                 width: getProportionateScreenWidth(40),
               ),

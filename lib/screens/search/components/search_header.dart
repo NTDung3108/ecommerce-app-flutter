@@ -62,7 +62,7 @@ class SearchHeader extends StatelessWidget{
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
-                hintText: "Search product or category",
+                hintText: "Tìm kiếm danh mục hoặc tài khoản",
                 prefixIcon: const Icon(Icons.search),
               ),
             ),

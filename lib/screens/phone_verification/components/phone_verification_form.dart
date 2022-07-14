@@ -75,7 +75,7 @@ class _PhoneVerificationForm extends State<PhoneVerificationForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
+            text: "Tiếp tục",
             press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
@@ -86,7 +86,7 @@ class _PhoneVerificationForm extends State<PhoneVerificationForm> {
                   authController.verifyPhone(phone!, context, true);
                   authController.phone = phone!;
                 }else{
-                  addError(error: 'Phone number already in use');
+                  addError(error: 'Số điện thoại đã được sử dụng');
                 }
               }
             },
@@ -116,7 +116,7 @@ class _PhoneVerificationForm extends State<PhoneVerificationForm> {
       },
       inputFormatters: [LengthLimitingTextInputFormatter(20)],
       decoration: const InputDecoration(
-        hintText: "Enter your phone number",
+        hintText: "Nhập vào số điện thoại của bạn",
         border: InputBorder.none,
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,

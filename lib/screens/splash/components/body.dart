@@ -21,16 +21,16 @@ class _Body extends State<Body> {
   bool isFirst = true;
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to Tokoto, Let’s shop!",
+      "text": "Chào mừng đến Tokoto, Hãy mua sắm!",
       "image": "assets/images/splash_1.png"
     },
     {
       "text":
-          "We help people conect with store \naround United State of America",
+          "Chúng tôi giúp mọi người kết nối với cửa hàng \ntrên khắp Việt Nam",
       "image": "assets/images/splash_2.png"
     },
     {
-      "text": "We show the easy way to shop. \nJust stay at home with us",
+      "text": "Chúng tôi chỉ cho bạn cách dễ dàng để mua sắm. \nChỉ cần ở nhà với chúng tôi",
       "image": "assets/images/splash_3.png"
     },
   ];
@@ -74,7 +74,7 @@ class _Body extends State<Body> {
                     flex: 3,
                   ),
                   DefaultButton(
-                    text: 'Continue',
+                    text: 'Tiếp tục',
                     press: () async {
                       await secureStore.write(key: 'isFirst', value: 'true');
                       Navigator.pushNamed(context, HomeScreen.routeName);

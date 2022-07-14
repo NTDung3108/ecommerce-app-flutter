@@ -13,7 +13,7 @@ class UserInfo extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'User Information',
+          'Thông tin cá nhân',
           style: TextStyle(color: Colors.black),
         ),
       ),

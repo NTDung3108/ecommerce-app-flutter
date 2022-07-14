@@ -12,7 +12,7 @@ class OTPScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('OTP Verification'),
+        title: const Text('Xác thực mã OTP'),
       ),
       body: OTPBody(),
     );

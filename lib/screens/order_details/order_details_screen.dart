@@ -15,7 +15,7 @@ class OrderDetailsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Order Detail',
+            'Chi Tiết Đơn Hàng',
             style: TextStyle(color: Colors.black),
           ),
         ),

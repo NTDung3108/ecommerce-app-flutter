@@ -37,7 +37,7 @@ class YourOrderBody extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Order ID: ${productController.orders[index].uidOrderBuy}',
+                              'Mã đơn hàng: ${productController.orders[index].uidOrderBuy}',
                               style: const TextStyle(
                                   color: Colors.black, fontSize: 16),
                             ),
@@ -51,7 +51,7 @@ class YourOrderBody extends StatelessWidget {
                           height: getProportionateScreenHeight(5),
                         ),
                         Text(
-                          'Amount: ${NumberFormat('###,###', 'en_US').format(productController.orders[index].amount)} VND',
+                          'TỔng giá: ${NumberFormat('###,###', 'en_US').format(productController.orders[index].amount)} VND',
                           style: const TextStyle(
                               color: Colors.black, fontSize: 16),
                         ),
@@ -67,7 +67,7 @@ class YourOrderBody extends StatelessWidget {
                                 .orders[index].uidOrderBuy}');
                           },
                           child: const Text(
-                            'Click to see details',
+                            'Nhấn để xem chi tiết',
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 fontSize: 15),

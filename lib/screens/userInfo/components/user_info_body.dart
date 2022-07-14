@@ -18,23 +18,23 @@ class UserInfoBody extends StatelessWidget {
           child: Column(children: [
             UserInfoMenu(
               text: '${userController.information.value.firstName}',
-              title: 'Update First Name',
-              label: 'first name',
+              title: 'Cập nhật họ',
+              label: 'họ',
             ),
             UserInfoMenu(
               text: '${userController.information.value.lastName}',
-              title: 'Update Last Name',
-              label: 'last name',
+              title: 'Cập nhật tên',
+              label: 'tên',
             ),
             UserInfoMenu(
               text: '${userController.information.value.phone}',
-              title: 'Update phone number',
-              label: 'phone number',
+              title: 'Cập nhật số điện thoại',
+              label: 'Số điện thoại',
             ),
             UserInfoMenu(
               text: '${userController.information.value.address}',
-              title: 'Update address',
-              label: 'address',
+              title: 'Cập nhật địa chỉ',
+              label: 'địa chỉ',
             ),
           ]),
         );

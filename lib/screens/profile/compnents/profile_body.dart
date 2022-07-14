@@ -20,7 +20,7 @@ class ProfileBody extends StatelessWidget {
           ProfilePic(),
           const SizedBox(height: 20),
           ProfileMenu(
-            text: 'My Account',
+            text: 'Tài khoản của tôi',
             icon: 'assets/icons/User Icon.svg',
             press: () async {
               var hasToken = await AuthServices().hasToken();
@@ -34,7 +34,7 @@ class ProfileBody extends StatelessWidget {
             },
           ),
           ProfileMenu(
-            text: 'Notification',
+            text: 'Thông báo',
             icon: 'assets/icons/Bell.svg',
             press: () async {
               var hasToken = await AuthServices().hasToken();
@@ -47,7 +47,7 @@ class ProfileBody extends StatelessWidget {
             },
           ),
           ProfileMenu(
-            text: 'Your Order',
+            text: 'Đơn hàng của tôi',
             icon: 'assets/icons/Cart Icon.svg',
             press: () async {
               var hasToken = await AuthServices().hasToken();
@@ -61,17 +61,17 @@ class ProfileBody extends StatelessWidget {
             },
           ),
           ProfileMenu(
-            text: 'Settings',
+            text: 'Cài đặt',
             icon: 'assets/icons/Settings.svg',
             press: () {},
           ),
           ProfileMenu(
-            text: 'Help Center',
+            text: 'Chung tâm chăm sóc khách hàng',
             icon: 'assets/icons/Question mark.svg',
             press: () {},
           ),
           ProfileMenu(
-            text: 'Log Out',
+            text: 'Đăng xuất',
             icon: 'assets/icons/Log out.svg',
             press: () async {
               var hasToken = await AuthServices().hasToken();
@@ -79,7 +79,7 @@ class ProfileBody extends StatelessWidget {
                 authController.logout(context);
               } else {
                 const snackBar = SnackBar(
-                    content: Text('You need to login to use this function'));
+                    content: Text('Bạn cần đăng nhập để sử dụng chức năng này'));
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             },

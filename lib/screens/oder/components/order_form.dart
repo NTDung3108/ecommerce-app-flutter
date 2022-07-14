@@ -27,8 +27,8 @@ class _OrderForm extends State<OrderForm> {
   String? note;
 
   static const String txtVNPay = 'VNPay';
-  static const String txtCredit = 'Credit';
-  static const String txtDP = 'Direct payment';
+  static const String txtCredit = 'Thẻ ngân hàng';
+  static const String txtDP = 'Thanh toán khi nhận hàng';
 
   static String payment = 'VNPay';
 
@@ -64,7 +64,7 @@ class _OrderForm extends State<OrderForm> {
             buildAddressFormField(),
             FormError(errors: errors),
             SizedBox(height: getProportionateScreenHeight(20)),
-            const Text('Payment methods'),
+            const Text('Phương thức thanh toán'),
             SizedBox(height: getProportionateScreenHeight(20)),
             Column(
               children: <Widget>[
@@ -116,7 +116,7 @@ class _OrderForm extends State<OrderForm> {
             buildNoteFormField(),
             SizedBox(height: getProportionateScreenHeight(40)),
             DefaultButton(
-              text: "continue",
+              text: "Tiếp tục",
               press: () async {
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
@@ -154,8 +154,8 @@ class _OrderForm extends State<OrderForm> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Address",
-        hintText: "Enter your address",
+        labelText: "Địa chỉ",
+        hintText: "Nhập địa chỉ giao hàng",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -169,8 +169,8 @@ class _OrderForm extends State<OrderForm> {
       maxLines: null,
       keyboardType: TextInputType.multiline,
       decoration: const InputDecoration(
-        labelText: "Note",
-        hintText: "Enter your Note",
+        labelText: "Ghi chú",
+        hintText: "Ghi chú của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

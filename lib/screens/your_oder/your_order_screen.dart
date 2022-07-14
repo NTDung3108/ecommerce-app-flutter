@@ -13,7 +13,7 @@ class YourOrderScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Your Oder',
+            'Đơn hàng của bạn',
             style: TextStyle(color: Colors.black),
           ),
         ),

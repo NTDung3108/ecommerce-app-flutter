@@ -7,7 +7,7 @@ import 'package:ecommerce_app/models/subcategory/saubcategories.dart';
 import 'package:http/http.dart' as http;
 
 class HomeService {
-  static String server = 'http://192.168.2.101:3000/api';
+  static String server = 'http://192.168.78.19:3000/api';
   static var client = http.Client();
 
   static Future<List<Products>?> getHomeProduct() async {

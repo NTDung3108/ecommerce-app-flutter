@@ -53,13 +53,13 @@ class _ChangeInfoDialog extends State<ChangeInfoDialog> {
             children: [
               SizedBox(height: getProportionateScreenHeight(20),),
               TextFormField(
-                keyboardType: widget.lable == 'phone number' ? TextInputType.phone : TextInputType.text,
+                keyboardType: widget.lable == 'Số điện thoại' ? TextInputType.phone : TextInputType.text,
                 onSaved: (newValue) => value = newValue,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
-                    if(widget.lable == 'phone number'){
-                      removeError(error: 'Please Enter your phone');
-                    }else if(widget.lable == 'address'){
+                    if(widget.lable == 'Số điện thoại'){
+                      removeError(error: 'Vui lòng nhập số điện thoại');
+                    }else if(widget.lable == 'địa chỉ'){
                       removeError(error: addressNullError );
                     } else {
                       removeError(error: namelNullError);
@@ -69,9 +69,9 @@ class _ChangeInfoDialog extends State<ChangeInfoDialog> {
                 },
                 validator: (value) {
                   if (value!.isEmpty) {
-                    if(widget.lable == 'phone number'){
-                      addError(error: 'Please Enter your phone');
-                    }else if(widget.lable == 'address'){
+                    if(widget.lable == 'Số điện thoại'){
+                      addError(error: 'Vui lòng nhập số điện thoại');
+                    }else if(widget.lable == 'địa chỉ'){
                       addError(error: addressNullError );
                     } else {
                       addError(error: namelNullError);
@@ -82,7 +82,7 @@ class _ChangeInfoDialog extends State<ChangeInfoDialog> {
                 },
                 decoration: InputDecoration(
                   labelText: widget.lable,
-                  hintText: "Enter your ${widget.lable}",
+                  hintText: "Nhập vào ${widget.lable} của bạn",
                   // If  you are using latest version of flutter then lable text and hint text shown like this
                   // if you r using flutter less then 1.20.* then maybe this is not working properly
                   floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -96,7 +96,7 @@ class _ChangeInfoDialog extends State<ChangeInfoDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context, 'Cancel'),
-          child: const Text('Cancel'),
+          child: const Text('Thoát'),
         ),
         TextButton(
           onPressed: () {
@@ -104,22 +104,22 @@ class _ChangeInfoDialog extends State<ChangeInfoDialog> {
               _formKey.currentState!.save();
               log('$value');
               switch(widget.lable){
-                case 'first name':
+                case 'họ':
                   userController.updateFirstName(firstName: value,context: context);
                   break;
-                case 'last name':
+                case 'tên':
                   userController.updateLastName(lastName: value,context: context);
                   break;
-                case 'phone number':
+                case 'Số điện thoại':
                   userController.updatePhone(phone: value,context: context);
                   break;
-                case 'address':
+                case 'địa chỉ':
                   userController.updateAddress(address: value,context: context);
                   break;
               }
             }
           },
-          child: const Text('Ok'),
+          child: const Text('đồng ý'),
         ),
       ],
     );

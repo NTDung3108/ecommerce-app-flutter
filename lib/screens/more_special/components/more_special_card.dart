@@ -31,7 +31,7 @@ class MoreSpecialCard extends StatelessWidget {
                 AspectRatio(
                   aspectRatio: 3.4,
                   child: Image.network(
-                    'http://192.168.2.101:3000/$image',
+                    'http://192.168.78.19:3000/$image',
                     fit: BoxFit.cover,
                   ),
                 ),

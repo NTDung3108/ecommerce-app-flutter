@@ -72,14 +72,14 @@ class _SignFormState extends State<SignForm> {
                   });
                 },
               ),
-              const Text("Remember me"),
+              const Text("Ghi nhớ tài khoản"),
               const Spacer(),
               GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
                 },
                 child: const Text(
-                  "Forgot Password",
+                  "Quên mật khẩu",
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
               )
@@ -88,7 +88,7 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "Continue",
+            text: "Tiếp tục",
             press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
@@ -107,7 +107,7 @@ class _SignFormState extends State<SignForm> {
                     Navigator.pushNamed(context, widget.page);
                   }
                 } else {
-                  addError(error: 'Wrong Credentials');
+                  addError(error: 'Sai Thông Tin Đăng Nhập');
                 }
               }
             },
@@ -140,8 +140,8 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Password",
-        hintText: "Enter your password",
+        labelText: "Mật Khẩu",
+        hintText: "Nhập mật khẩu của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -168,8 +168,8 @@ class _SignFormState extends State<SignForm> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Phone Number",
-        hintText: "Enter your phone number",
+        labelText: "Số điện thoại",
+        hintText: "Nhập vào số điện thoại của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

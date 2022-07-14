@@ -25,14 +25,14 @@ class SingInBody extends StatelessWidget {
                 //   height: SizeConfig.screenHeight * 0.4,
                 // ),
                 Text(
-                  'Wellcome Back',
+                  'Cào mừng chở lại',
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: getProportionateScreenWidth(20),
                       fontWeight: FontWeight.bold),
                 ),
                 const Text(
-                  "Sign in with your phone and password  \nor continue with social media",
+                  "Đăng nhập bằng điện thoại và mật khẩu của bạn \n cũng như không tiếp tục với mạng xã hội",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),

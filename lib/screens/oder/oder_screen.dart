@@ -11,7 +11,7 @@ class OderScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Oder',
+            'Đơn hàng',
             style: TextStyle(color: Colors.black),
           ),
         ),

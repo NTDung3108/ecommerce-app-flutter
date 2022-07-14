@@ -63,7 +63,7 @@ class ProductsHeader extends StatelessWidget{
                 border: InputBorder.none,
                 focusedBorder: InputBorder.none,
                 enabledBorder: InputBorder.none,
-                hintText: "Search product",
+                hintText: "Tìm kiếm sản phẩm",
                 prefixIcon: const Icon(Icons.search),
               ),
             ),

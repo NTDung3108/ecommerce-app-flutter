@@ -42,7 +42,7 @@ class UserInfoMenu extends StatelessWidget {
               text,
               style: const TextStyle(color: Colors.black),
             )),
-            const Text('Change')
+            const Text('thay đổi')
           ],
         ),
       ),

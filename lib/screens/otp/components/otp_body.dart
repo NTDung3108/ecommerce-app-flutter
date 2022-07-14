@@ -23,10 +23,10 @@ class OTPBody extends StatelessWidget {
                 height: SizeConfig.screenHeight * 0.05,
               ),
               Text(
-                'OTP Verification',
+                'Xác thực mã OTP',
                 style: headingStyle,
               ),
-              const Text('We send your code to'),
+              Text('Chúng tôi gửi mã của bạn tới số điện thoại${authController.phone}'),
               buildTimer(),
               OTPForm(),
               SizedBox(
@@ -36,12 +36,12 @@ class OTPBody extends StatelessWidget {
                 onTap: () {
                   authController.verifyPhone(authController.phone, context, false);
                   const snackBar = SnackBar(
-                    content: Text('Otp code has been sent'),
+                    content: Text('mã OTP đã được gửi'),
                   );
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                 },
                 child: const Text(
-                  "Resend OTP",
+                  "Gửi lại mã OTP",
                   style: TextStyle(
                       decoration: TextDecoration.underline,
                     fontSize: 16
@@ -59,7 +59,7 @@ class OTPBody extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("This code will expired in "),
+        const Text("Mã OTP sẽ hết hạn sau  "),
         TweenAnimationBuilder(
           tween: Tween(begin: 60.0, end: 00.0),
           duration: const Duration(seconds: 60),

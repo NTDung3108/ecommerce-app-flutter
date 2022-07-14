@@ -28,7 +28,7 @@ class CartCard extends StatelessWidget {
                 color: const Color(0xFFF5F6F9),
                 borderRadius: BorderRadius.circular(15),
               ),
-              child: Image.network('http://192.168.2.101:3000/${cart.image}'),
+              child: Image.network('http://192.168.78.19:3000/${cart.image}'),
             ),
           ),
         ),

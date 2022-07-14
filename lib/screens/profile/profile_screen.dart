@@ -18,7 +18,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Center(
           child: Text(
-            'Profile',
+            'Hồ sơ',
             style: TextStyle(color: Colors.black),
           ),
         ),

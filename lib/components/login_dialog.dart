@@ -7,13 +7,13 @@ class LoginDialog {
       context: context,
       builder: (context) => AlertDialog(
         content: const Text(
-          'You are not logged in. Please be logged in to use this function',
+          'Bạn cần đăng nhập để sử dụng chức năng này',
           style: TextStyle(color: Colors.black),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pushNamed(context, SignInScreen.routeName, arguments: SignInArguments(page: page)),
-            child: const Text('OK'),
+            child: const Text('Đồng ý'),
           ),
         ],
       ),

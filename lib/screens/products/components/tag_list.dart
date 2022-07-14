@@ -23,7 +23,7 @@ class _TagList extends State<TagList>{
     // TODO: implement build
     return  Row(
       children: [
-        const Text('Fillter: '),
+        const Text('Lọc: '),
         SizedBox(
           width: getProportionateScreenWidth(280),
           child: Obx(

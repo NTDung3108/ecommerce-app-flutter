@@ -79,12 +79,12 @@ class ProductController extends GetxController {
       productCarts.add(productCard);
       await DBHelper().insertCart(productCard);
       const snackBar = SnackBar(
-        content: Text('The product has been added to cart'),
+        content: Text('Sản phẩm đã được thêm vào giỏ hàng'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else {
       const snackBar = SnackBar(
-        content: Text('Products already in the cart'),
+        content: Text('Sản phẩm đã ở trong giỏ hàng'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -119,7 +119,7 @@ class ProductController extends GetxController {
           productCarts.value = [];
           await DBHelper().deleteAllTasks();
           const snackBar = SnackBar(
-            content: Text('The product has been order'),
+            content: Text('Đơn hàng của bạn đã được tạo'),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           Navigator.pushNamed(context, CartScreen.routeName);
@@ -175,7 +175,7 @@ class ProductController extends GetxController {
             showDialog<String>(
               context: context,
               builder: (BuildContext context) => AlertDialog(
-                title: const Text('Quantity products is not enough'),
+                title: const Text('Số lượng sản phẩm không đủ'),
                 content: ListView.builder(
                   itemCount: _msj.length,
                   itemBuilder: (context, index) => Text(
@@ -186,7 +186,7 @@ class ProductController extends GetxController {
                 actions: <Widget>[
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'OK'),
-                    child: const Text('OK'),
+                    child: const Text('Đồng ý'),
                   ),
                 ],
               ),

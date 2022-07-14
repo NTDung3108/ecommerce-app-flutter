@@ -22,14 +22,14 @@ final headingStyle = TextStyle(
 const defaultDuration = Duration(milliseconds: 250);
 
 // Form Error
-const String phoneNullError = "Please Enter your phone number";
-const String invalidPhoneError = "Please Enter Valid phone number";
-const String passNullError = "Please Enter your password";
-const String shortPassError = "Password is too short";
-const String matchPassError = "Passwords don't match";
-const String namelNullError = "Please Enter your name";
-const String phoneNumberNullError = "Please Enter your phone number";
-const String addressNullError = "Please Enter your address";
+const String phoneNullError = "Vui lòng nhập số điện thoại của bạn";
+const String invalidPhoneError = "Xin nhập số điện thoại hợp lệ";
+const String passNullError = "Vui lòng nhập nhập mật khẩu";
+const String shortPassError = "Mật khẩu quá ngắn";
+const String matchPassError = "Mật khẩu không khớp";
+const String namelNullError = "Vui lòng nhập tên cảu bạn";
+const String phoneNumberNullError = "Vui lòng nhập số điện thoại";
+const String addressNullError = "Vui lòng nhập địa chỉ";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

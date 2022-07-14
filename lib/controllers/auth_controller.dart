@@ -69,7 +69,7 @@ class AuthController extends GetxController {
           this.verificationId = verificationId;
           log(this.verificationId);
           const snackBar = SnackBar(
-            content: Text('Otp code has been sent'),
+            content: Text('Mã OTP đã được gửi'),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
           Navigator.pushNamed(context, OTPScreen.routeName);
@@ -201,7 +201,7 @@ class AuthController extends GetxController {
     } finally {
       log('logout');
       const snackBar = SnackBar(
-        content: Text('Log Out successful'),
+        content: Text('Đăng nhậ thành công'),
       );
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
