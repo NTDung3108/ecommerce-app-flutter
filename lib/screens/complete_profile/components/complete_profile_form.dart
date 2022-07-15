@@ -29,7 +29,7 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
   String? address;
 
   Gender? _gender = Gender.male;
-  String sGender = 'male';
+  String sGender = 'nam';
 
   final UserController userController = Get.find();
 
@@ -67,33 +67,33 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
                 onChanged: (Gender? value) {
                   setState(() {
                     _gender = value;
-                    sGender = 'male';
+                    sGender = 'nam';
                   });
                 },
               ),
-              Text('male'),
+              Text('Nam'),
               Radio<Gender>(
                 value: Gender.female,
                 groupValue: _gender,
                 onChanged: (Gender? value) {
                   setState(() {
                     _gender = value;
-                    sGender = 'female';
+                    sGender = 'nữ';
                   });
                 },
               ),
-              Text('female'),
+              Text('Nữ'),
               Radio<Gender>(
                 value: Gender.other,
                 groupValue: _gender,
                 onChanged: (Gender? value) {
                   setState(() {
                     _gender = value;
-                    sGender = 'other';
+                    sGender = 'khác';
                   });
                 },
               ),
-              Text('other'),
+              Text('Khác'),
             ],
           ),
           SizedBox(height: getProportionateScreenHeight(30)),
@@ -101,7 +101,7 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "continue",
+            text: "Tiếp tục",
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
@@ -142,8 +142,8 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "Address",
-        hintText: "Enter your address",
+        labelText: "Địa chỉ",
+        hintText: "Địa chỉ của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -157,8 +157,8 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
     return TextFormField(
       onSaved: (newValue) => lastName = newValue,
       decoration: const InputDecoration(
-        labelText: "Last Name",
-        hintText: "Enter your last name",
+        labelText: "Tên",
+        hintText: "Nhập tên của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -184,8 +184,8 @@ class _CompleteProfileFrom extends State<CompeleteProfileForm> {
         return null;
       },
       decoration: const InputDecoration(
-        labelText: "First Name",
-        hintText: "Enter your first name",
+        labelText: "Họ",
+        hintText: "Nhập họ của bạn",
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,

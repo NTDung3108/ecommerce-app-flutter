@@ -22,7 +22,7 @@ class SpecialOffers extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-            title: 'Special for you',
+            title: 'Đề xuất cho bạn',
             press: () {
               Navigator.pushNamed(context, MoreSpecialScreen.routeName);
             },

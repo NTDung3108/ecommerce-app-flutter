@@ -83,7 +83,7 @@ class _DetailBodyState extends State<DetailBody> {
                                 horizontal: getProportionateScreenWidth(40),
                               ),
                               child: DefaultButton(
-                                text: 'Add To Cart',
+                                text: 'Thêm vào giỏ hàng',
                                 press: () {
                                   var productCard = ProductCart(
                                       uidProduct: productController
@@ -111,7 +111,7 @@ class _DetailBodyState extends State<DetailBody> {
                                 left: getProportionateScreenWidth(10),
                               ),
                               child: const Text(
-                                'Review',
+                                'Đánh giá',
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 20,
@@ -144,7 +144,7 @@ class _DetailBodyState extends State<DetailBody> {
                                           },
                                         )
                                       : const Center(
-                                          child: Text('No Comment'),
+                                          child: Text('Không có đánh giá'),
                                         ),
                                 );
                               },

@@ -152,7 +152,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
         Padding(
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
-          child: const Text('Desciption:'),
+          child: const Text('Mô tả:'),
         ),
         Padding(
           padding: EdgeInsets.only(
@@ -169,7 +169,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                     InkWell(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: [Text(flag ? 'show more' : 'show less')],
+                        children: [Text(flag ? 'Mở rộng' : 'Thu gọn')],
                       ),
                       onTap: () {
                         setState(() {

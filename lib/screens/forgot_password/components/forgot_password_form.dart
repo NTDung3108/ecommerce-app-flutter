@@ -75,7 +75,7 @@ class _ForgotPasswordForm extends State<ForgotPasswordForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
-            text: "Continue",
+            text: "Tiếp tục",
             press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
@@ -83,7 +83,7 @@ class _ForgotPasswordForm extends State<ForgotPasswordForm> {
                 log('+1${phoneEditController.text}');
                 var checkPhone = await authController.checkPhone(phone!, context);
                 if(checkPhone){
-                  addError(error: 'Unregistered phone number');
+                  addError(error: 'Số điện thoại chưa đăng ký');
                 }else{
                   authController.verifyPhone(phone!, context, true);
                   authController.forgotPass = true;
@@ -117,7 +117,7 @@ class _ForgotPasswordForm extends State<ForgotPasswordForm> {
       },
       inputFormatters: [LengthLimitingTextInputFormatter(20)],
       decoration: const InputDecoration(
-        hintText: "Enter your phone number",
+        hintText: 'Số điện thoại của bạn',
         border: InputBorder.none,
         focusedBorder: InputBorder.none,
         enabledBorder: InputBorder.none,

@@ -21,16 +21,16 @@ class CompleteProfileBody extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.screenHeight * 0.03,
                 ),
-                Text("Complete Profile", style: headingStyle),
+                Text("Hoàn thành", style: headingStyle),
                 const Text(
-                  "Complete your details or continue  \nwith social media",
+                  "Hoàn thành thông tin chi tiết của bạn hoặc tiếp tục \n với mạng xã hội",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.06),
                 const CompeleteProfileForm(),
                 SizedBox(height: getProportionateScreenHeight(30)),
                 Text(
-                  "By continuing your confirm that you agree \nwith our Term and Condition",
+                  "Bằng cách tiếp tục xác nhận rằng bạn đồng ý \n với Điều khoản và Điều kiện của chúng tôi",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.caption,
                 ),

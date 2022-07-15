@@ -24,12 +24,12 @@ class CartScreen extends StatelessWidget {
         child: Column(
           children: [
             const Text(
-              'Your Cart',
+              'Giỏ hàng của bạn',
               style: TextStyle(color: Colors.black),
             ),
             Obx(
               () => Text(
-                '${productController.productCarts.length} item',
+                '${productController.productCarts.length} sản phẩm',
                 style: Theme.of(context).textTheme.caption,
               ),
             )

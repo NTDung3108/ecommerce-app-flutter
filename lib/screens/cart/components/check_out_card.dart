@@ -45,7 +45,7 @@ class CheckoutCard extends StatelessWidget {
                 child: SvgPicture.asset('assets/icons/receipt.svg'),
               ),
               const Spacer(),
-              const Text('Add voucher code'),
+              const Text('Thêm mã giảm giá'),
               const SizedBox(
                 width: 10,
               ),
@@ -61,7 +61,7 @@ class CheckoutCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const Text(
-                'Total: ',
+                'Tổng: ',
                 style: TextStyle(fontSize: 20),
               ),
               Obx(
@@ -76,7 +76,7 @@ class CheckoutCard extends StatelessWidget {
           SizedBox(
             width: getProportionateScreenWidth(190),
             child: DefaultButton(
-              text: 'Ckeck Out',
+              text: 'Đặt hàng',
               press: () => Navigator.pushNamed(context, OderScreen.routeName)
             ),
           ),

@@ -17,7 +17,7 @@ class PopularProducts extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: SectionTitle(
-            title: 'Popular Product',
+            title: 'Được mua nhiều',
             press: () {},
           ),
         ),

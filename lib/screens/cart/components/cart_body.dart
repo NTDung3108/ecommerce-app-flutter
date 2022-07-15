@@ -20,7 +20,7 @@ class _CartBody extends State<CartBody> {
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: productController.productCarts.isEmpty
               ? const Center(
-                  child: Text('Cart is emty'),
+                  child: Text('Giỏ hàng rỗng'),
                 )
               : ListView.builder(
                   itemCount: productController.productCarts.length,

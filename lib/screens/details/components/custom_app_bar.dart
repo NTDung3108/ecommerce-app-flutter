@@ -135,7 +135,7 @@ class _CustomAppBar extends State<CustomAppBar> {
                                                   getProportionateScreenWidth(
                                                       100)),
                                           child: const Text(
-                                            'Rating',
+                                            'Đánh giá',
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 20,
@@ -168,7 +168,7 @@ class _CustomAppBar extends State<CustomAppBar> {
                                     controller: commentController,
                                     focusNode: _focusNode,
                                     decoration: const InputDecoration(
-                                      labelText: 'Comment',
+                                      labelText: 'Bình luận',
                                       enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(Radius.circular(4)),
                                         borderSide: BorderSide(width: 1,color: Colors.black),
@@ -184,7 +184,7 @@ class _CustomAppBar extends State<CustomAppBar> {
                                     keyboardType: TextInputType.multiline,
                                   ),
                                   DefaultButton(
-                                    text: 'Send Comment',
+                                    text: 'Gửi đánh giá',
                                     press: () {
                                       ratingController.newComment(context: context, productId: widget.idProduct, rating: rating, comment: commentController.text );
                                       hideKeyboard(context);
